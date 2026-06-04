@@ -1,64 +1,37 @@
-/* ==========================================================================
- *  Obsidian Standard — Clean & Professional Theme for Obsidian
- *  ==========================================================================
- *  A crisp, green-accented theme that unifies Light / Dark / Print modes
- *  across both Preview (reading) and Source / Live Preview (editing) views.
- *
- *  一款清新的绿色主题，统一了 Light / Dark / Print 三种模式，
- *  同时兼容 Preview（阅读）和 Source / Live Preview（编辑）视图。
- *
+/* ========================================================================
+ *  Obsidian Standard
+ *  Version    : 2.0.0
+ *  统一 Light / Dark / Print — 统一 Preview / Source 模式
  *  Repository : https://github.com/tsingke/obsidian-standard-theme
- *  Version    : 1.1.0
  *  License    : MIT
- * ========================================================================== */
+ * ======================================================================== */
 
-
-
-/* ==========================================================================
- *  1. Color Variables (CSS Custom Properties)
- *  颜色变量（CSS 自定义属性）
- *  ==========================================================================
- *  Central color palette used throughout the theme. Change these values
- *  to quickly customize the entire look.
- *
- *  全局调色板，修改这些值即可快速定制整体外观。
- * ========================================================================== */
-
-/* --- Light Mode (Default) --- */
+/* ===================== */
+/* ===== 颜色变量 ===== */
+/* ===================== */
 :root {
-  /* Heading block background & accent (标题块背景色/强调色) */
   --heading-bg: #1a7a6a;
   --heading-accent: #f2c94c;
   --heading-color: #ffffff;
-
-  /* Hierarchical heading colors: H2 → H6 (层级标题颜色) */
   --secondary-color: #2d8a6e;
   --third-color: #3d9a78;
   --fourth-color: #50aa88;
   --fifth-color: #6aba9c;
-
-  /* Accent colors for links, emphasis, etc. (链接/强调等标记色) */
   --text-accent: #1a7a6a;
   --text-accent-strong: #0d5c4a;
   --highlight-color: #f2c94c;
-
-  /* Inline code (行内代码) */
   --inline-bg: #eaf5f2;
   --inline-color: #0d5c4a;
-
-  /* Tables (表格) */
+  /* --blockquote-bg 和 --blockquote-bar 已废弃，引用块使用硬编码值 */
   --table-bg: #ffffff;
   --table-stripe: #f8fbfa;
-
-  /* Code blocks (代码块) */
-  --code-bg: #f5f7f9;
-
-  /* Borders, body text (边框/正文颜色) */
   --border-color: #cccccc;
   --body-color: #333333;
 }
 
-/* --- Dark Mode (暗色模式) --- */
+/* ===================== */
+/* == Dark Mode 变量覆盖 == */
+/* ===================== */
 .theme-dark {
   --heading-bg: #1a7a6a;
   --heading-color: #f0f0f0;
@@ -66,24 +39,23 @@
   --third-color: #63c8aa;
   --fourth-color: #7dd8ba;
   --fifth-color: #98e5cc;
-
   --text-accent: #4db89a;
   --text-accent-strong: #7dd8ba;
-
   --inline-bg: #1a2f2a;
   --inline-color: #7dd8ba;
-
+  --blockquote-bg: #1a2a25;
   --table-bg: #1e1e1e;
   --table-stripe: #252525;
-
-  --code-bg: #1a1f23;
   --border-color: #444444;
   --body-color: #d0d0d0;
 }
 
-/* --- Print / PDF Export Mode (打印/PDF导出模式) --- */
+/* ===================== */
+/* ===== Print / PDF ==== */
+/* ===================== */
 @media print {
   :root {
+    /* CSS 自定义属性不支持 !important，此处去除，依赖下方硬编码规则保障打印效果 */
     --heading-bg: #1a7a6a;
     --secondary-color: #1d6b52;
     --third-color: #227a5e;
@@ -93,61 +65,55 @@
     --text-accent-strong: #0a3d2e;
     --inline-bg: #e8f0ed;
     --inline-color: #0a3d2e;
-    --code-bg: #f0f3f5;
     --body-color: #1a1a1a;
     --table-bg: #ffffff;
     --table-stripe: #f5f7f8;
     --border-color: #999999;
   }
 
-  /* Ensure dark text for readability on paper (打印保证文字清晰) */
+  /* Print: ensure dark text for readability */
   body { color: #1a1a1a !important; }
 
-  /* Code blocks with distinct background (代码块独立背景) */
+  /* Print: code blocks — use theme variable or fallback to light readable colors */
   pre, code {
-    background: #f5f6f8 !important;
-    color: #1a1a1a !important;
+    background: var(--code-background, #f5f6f8) !important;
+    color: var(--code-normal, #1a1a1a) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
-  /* Syntax highlight tokens in print — scoped inside <pre><code> only
-   * to avoid polluting body text.
-   * 打印语法高亮 — 限定在代码块内，避免污染正文 */
+  /* Print: code syntax token colors — 使用 --code-* 变量 */
   pre code .token.comment,
   pre code .token.prolog,
   pre code .token.doctype,
-  pre code .token.cdata { color: #5a7a5a !important; font-style: italic; }
-  pre code .token.punctuation { color: #4a4a4a !important; }
+  pre code .token.cdata { color: var(--code-comment, #5a7a5a) !important; font-style: italic; }
+  pre code .token.punctuation { color: var(--code-punctuation, #4a4a4a) !important; }
   pre code .token.property,
   pre code .token.tag,
   pre code .token.boolean,
   pre code .token.number,
   pre code .token.constant,
   pre code .token.symbol,
-  pre code .token.deleted { color: #8a2a5a !important; }
+  pre code .token.deleted { color: var(--code-value, #8a2a5a) !important; }
   pre code .token.selector,
   pre code .token.attr-name,
   pre code .token.string,
   pre code .token.char,
   pre code .token.builtin,
-  pre code .token.inserted { color: #2a5a8a !important; }
+  pre code .token.inserted { color: var(--code-string, #2a5a8a) !important; }
   pre code .token.operator,
   pre code .token.entity,
-  pre code .token.url { color: #4a4a2a !important; }
+  pre code .token.url { color: var(--code-operator, #4a4a2a) !important; }
   pre code .token.atrule,
   pre code .token.attr-value,
-  pre code .token.keyword { color: #1a5a9a !important; font-weight: bold; }
+  pre code .token.keyword { color: var(--code-keyword, #1a5a9a) !important; font-weight: bold; }
   pre code .token.function,
-  pre code .token.class-name { color: #5a3a8a !important; }
+  pre code .token.class-name { color: var(--code-function, #5a3a8a) !important; }
   pre code .token.regex,
   pre code .token.important,
-  pre code .token.variable { color: #8a6a1a !important; }
-  .language-css pre code .token.string,
-  .style pre code .token.string { color: #4a6a2a !important; }
-  pre code .token.important,
-  pre code .token.bold { font-weight: bold; }
-  pre code .token.italic { font-style: italic; }
+  pre code .token.variable { color: var(--code-value, #8a6a1a) !important; }
 
-  /* Language-specific token overrides for print (语言特定的打印Token) */
+/* Print: 语言特定 token */
   .language-c pre code .token.keyword,
   .language-cpp pre code .token.keyword { color: #1a4a8a !important; }
   .language-python pre code .token.keyword { color: #8a3a1a !important; }
@@ -162,16 +128,16 @@
   .language-latex pre code .token.keyword { color: #6a3a5a !important; }
   .language-markdown pre code .token.url { color: #3a5a8a !important; text-decoration: underline; }
 
-  /* Darker heading colors for print (打印标题加深) */
+  /* Print: darker heading colors */
   h3, .cm-header-3 { color: #1d6b52 !important; }
   h4, .cm-header-4 { color: #227a5e !important; }
   h5, .cm-header-5 { color: #2d8a6e !important; }
   h6, .cm-header-6 { color: #3d9a78 !important; }
 
-  /* H1 retains green background + white text + yellow accent bar.
-   * print-color-adjust: exact forces the browser/PDF engine to output
-   * background colors; otherwise most print environments suppress them.
-   * H1 保留深绿背景 + 白字 + 金色左侧竖线 */
+  /* Print: H1 保留深绿背景 + 白字 + 黄色左侧竖线（与屏幕样式一致）
+   * print-color-adjust: exact 强制浏览器/打印机输出背景色，
+   * 否则多数打印环境会忽略 background-color，导致白字消失。
+   */
   h1,
   body .markdown-preview-view h1,
   body .markdown-rendered h1 {
@@ -198,8 +164,7 @@
     print-color-adjust: exact !important;
   }
 
-  /* H2 retains underline decoration with darker color
-   * H2 保留下划线装饰，颜色加深 */
+  /* Print: H2 保留下划线装饰，颜色加深 */
   h2,
   body .markdown-preview-view h2,
   body .markdown-rendered h2 {
@@ -207,12 +172,12 @@
   }
   body .markdown-preview-view h2::after,
   body .markdown-rendered h2::after {
-    background-color: #f2c94c !important;
+    background-color: #f2c94c !important;   /* 保留黄色下划线 */
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
-  /* Blockquote: remove background, keep left border (引用块去除背景，保留左边框) */
+  /* Print: 引用块去除背景色，保留左边框 */
   blockquote,
   .markdown-preview-view blockquote,
   .markdown-rendered blockquote {
@@ -222,7 +187,7 @@
     color: #333333 !important;
   }
 
-  /* Tables (打印表格) */
+  /* Print: table borders */
   table, th, td { border-color: #888888 !important; }
   td { background: #ffffff !important; color: #1a1a1a !important; }
   th {
@@ -233,20 +198,17 @@
   }
 }
 
+/* ================================ */
+/* ===== 笔记正文颜色 (仅限笔记区域) ===== */
+/* ================================ */
 
-
-/* ==========================================================================
- *  2. Note Body Text — Light & Dark
- *  笔记正文颜色 — 浅色与深色模式
- *  ========================================================================== */
-
-/* Light: dark gray body text (浅色模式: 深灰正文) */
+/* Light: 笔记正文深灰色 */
 .markdown-preview-view,
 .markdown-rendered {
   color: #333333;
 }
 
-/* Dark: light gray body text (深色模式: 亮灰正文) */
+/* Dark: 笔记正文亮灰色 */
 .theme-dark .markdown-preview-view,
 .theme-dark .markdown-rendered {
   color: #d0d0d0;
@@ -260,22 +222,11 @@
   color: #d0d0d0;
 }
 
+/* ================================ */
+/* ===== 预览模式 Headings ===== */
+/* ================================ */
 
-
-/* ==========================================================================
- *  3. Headings — Preview (Reading) Mode
- *  标题样式 — 预览（阅读）模式
- *  ==========================================================================
- *  H1: Green block background + white text + golden left accent bar
- *  H2: Green text + golden underline bar
- *  H3–H6: Hierarchical green tones from dark to light
- *
- *  H1: 深绿背景 + 白字 + 金色左侧竖线
- *  H2: 绿色文字 + 金色底部下划线
- *  H3–H6: 由深到浅的层级绿色
- * ========================================================================== */
-
-/* --- H1: Green block + golden left bar (深绿块 + 金色左侧竖线) --- */
+/* H1 — 硬编码颜色，不受主题切换影响 */
 body .markdown-preview-view h1,
 body .markdown-rendered h1 {
   background-color: #1a7a6a !important;
@@ -286,8 +237,8 @@ body .markdown-rendered h1 {
   margin-bottom: 1em !important;
   font-size: 1.3em !important;
   position: relative !important;
-  border-radius: 4px !important;
-  overflow: hidden !important;
+  border-radius: 4px !important;          /* 圆角 */
+  overflow: hidden !important;             /* 让内部 ::after 金色竖线被圆角剪裁 */
 }
 body .markdown-preview-view h1::after,
 body .markdown-rendered h1::after {
@@ -300,7 +251,7 @@ body .markdown-rendered h1::after {
   background-color: #f2c94c !important;
 }
 
-/* --- H2: Green text + golden underline (绿色文字 + 金色下划线) --- */
+/* H2 — 硬编码颜色 */
 body .markdown-preview-view h2,
 body .markdown-rendered h2 {
   color: #1a7a6a !important;
@@ -324,7 +275,7 @@ body .markdown-rendered h2::after {
   background-color: #f2c94c !important;
 }
 
-/* --- H3–H6: Hierarchical greens (层级绿色标题) --- */
+/* H3 - H6 — 硬编码颜色 */
 body .markdown-preview-view h3,
 body .markdown-rendered h3 {
   color: #2d8a6e !important;
@@ -358,48 +309,48 @@ body .markdown-rendered h6 {
   font-size: 0.9em !important;
 }
 
-
-
-/* ==========================================================================
- *  4. Headings — Editor (Source / Live Preview) Mode
- *  标题样式 — 编辑模式（源码 / 实时预览）
- *  ==========================================================================
- *  In editor mode, heading markers (#) stay inline with the title text.
- *  The decorative backgrounds/borders are applied to the parent
- *  .cm-line.HyperMD-header-* container so they span the full line width.
- *
- *  编辑模式下，# 标记与标题文字保持同一行，
- *  装饰背景/边框由父级 .cm-line 行容器负责，横跨整行宽度。
- * ========================================================================== */
-
-/* --- H1: inline white text on green; container gets green bg + gold bar --- */
-/* H1 编辑文字：白字；行容器：深绿背景 + 金色竖线 */
+/* ================================ */
+/* ===== 编辑模式 Headings ===== */
+/* ================================ */
+/* H1 编辑模式：保持 inline，与 # 标记同一行
+ * 不要用 display: block / width: 100%，否则会把标题文字挤到下一行
+ * 深绿背景 + 金色竖线由父级 .cm-line.HyperMD-header-1 行容器负责（横跨整行）
+ */
 .cm-s-obsidian .cm-header-1 {
   font-size: 1.3em;
   color: #ffffff !important;
   font-weight: bold;
 }
+
+/* H1 行容器：深绿背景 + 金色左侧竖线，横跨整个编辑区宽度 */
 .cm-s-obsidian .cm-line.HyperMD-header-1 {
   background-color: #1a7a6a !important;
   border-left: 6px solid #f2c94c !important;
-  padding: 4px 8px 4px 14px !important;
-  color: #ffffff !important;
-  border-radius: 4px !important;
+  padding: 4px 8px 4px 14px !important;   /* 与预览模式 h1 padding-left 对齐 */
+  color: #ffffff !important;               /* 确保 # 标记也是白色 */
+  border-radius: 4px !important;           /* 圆角 */
 }
 
-/* --- H2: green text; container gets golden underline --- */
-/* H2 编辑文字：绿色；行容器：金色下划线 */
+/* H1 行被光标选中（active line）时，仍保持深绿背景，不被浅灰高亮覆盖 */
+.cm-s-obsidian .cm-line.HyperMD-header-1.cm-active,
+.cm-s-obsidian .cm-active.cm-line.HyperMD-header-1 {
+  background-color: #1a7a6a !important;
+}
+/* H2 编辑模式：保持 inline，与 ## 标记同一行
+ * 不要用 display: block / width: 100%，否则会把标题文字挤到下一行
+ * 下划线由父级 .cm-line.HyperMD-header-2 行容器负责（横跨整行宽度）
+ */
 .cm-s-obsidian .cm-header-2 {
   font-size: 1.15em;
   color: #1a7a6a !important;
   font-weight: bold;
 }
+
+/* H2 黄色下划线：画在行容器上，横跨整个编辑区宽度 */
 .cm-s-obsidian .cm-line.HyperMD-header-2 {
   border-bottom: 2px solid #f2c94c !important;
   padding-bottom: 2px !important;
 }
-
-/* --- H3–H6: hierarchical greens (层级绿色) --- */
 .cm-s-obsidian .cm-header-3 {
   font-size: 1.05em;
   color: #2d8a6e !important;
@@ -421,42 +372,40 @@ body .markdown-rendered h6 {
   font-weight: bold;
 }
 
+/* =================================== */
+/* ===== 标题自动编号 =====             */
+/* =================================== */
+/*
+  编号由 number-headings-obsidian 插件管理:
+  - 打开文件 → 自动刷新
+  - 保存文件 → 自动刷新
+  - H1 不编号, H2 起 1. 2. 3. ...
+  - 编号写入 Markdown 源码，导出 PDF 保留
+*/
 
-
-/* ==========================================================================
- *  5. Inline Formatting — Editor Mode
- *  行内格式 — 编辑模式
- *  ========================================================================== */
-
-/* Bold (加粗) */
+/* ================================ */
+/* ===== 编辑模式 行内格式 ===== */
+/* ================================ */
 .cm-s-obsidian .cm-strong {
   color: #0d5c4a !important;
 }
-
-/* Italic (斜体) */
 .cm-s-obsidian .cm-em {
   color: #1a7a6a !important;
 }
-
-/* Strikethrough (删除线) */
 .cm-s-obsidian .cm-strikethrough {
   color: #1a7a6a !important;
 }
-
-/* Links (链接) */
 .cm-s-obsidian .cm-link {
   color: #1a7a6a !important;
   text-decoration: underline dotted #1a7a6a;
 }
-
-/* Underline (下划线 — including bold+underline combinations) */
+/* 编辑模式：下划线（含加粗下划线组合） */
 .cm-s-obsidian .cm-underline {
   color: #1a7a6a !important;
   text-decoration: underline solid #1a7a6a !important;
   text-underline-offset: 2px;
 }
-
-/* Bold + underline combo — ensure it's not black (加粗+下划线组合，确保不是黑色) */
+/* 加粗+下划线组合 — 确保不是黑色 */
 .cm-s-obsidian .cm-strong.cm-underline,
 .cm-s-obsidian span.cm-strong span.cm-underline,
 .cm-s-obsidian span.cm-underline span.cm-strong,
@@ -465,14 +414,11 @@ body .markdown-rendered h6 {
   text-decoration: underline solid #0d5c4a !important;
 }
 
+/* ================================ */
+/* ===== 行内代码 (双模式) ===== */
+/* ================================ */
 
-
-/* ==========================================================================
- *  6. Inline Code — Both Modes
- *  行内代码 — 双模式适配
- *  ========================================================================== */
-
-/* Editor mode (编辑模式) */
+/* 编辑模式 */
 .cm-s-obsidian .cm-inline-code {
   background-color: #edf2f0 !important;
   color: #c7254e !important;
@@ -482,7 +428,7 @@ body .markdown-rendered h6 {
   border: 1px solid #dde4e2;
 }
 
-/* Preview mode (预览模式) */
+/* 预览模式 */
 .markdown-preview-view code:not([class*="language-"]),
 .markdown-rendered code:not([class*="language-"]) {
   background-color: #edf2f0 !important;
@@ -493,7 +439,7 @@ body .markdown-rendered h6 {
   border: 1px solid #dde4e2;
 }
 
-/* Dark mode (暗色模式) */
+/* Dark / Light 都确保行内代码可读 */
 .theme-dark .cm-s-obsidian .cm-inline-code,
 .theme-dark .markdown-preview-view code:not([class*="language-"]),
 .theme-dark .markdown-rendered code:not([class*="language-"]) {
@@ -502,53 +448,49 @@ body .markdown-rendered h6 {
   border: 1px solid #444444;
 }
 
+/* ================================= */
+/* ===== 代码块 ===== */
+/* ================================= */
 
-
-/* ==========================================================================
- *  7. Code Blocks
- *  代码块
- *  ========================================================================== */
-
-/* --- Code block background & border (代码块背景与边框) --- */
+/* ★ 代码块换行健壮性兜底（最高优先级）★
+ * 强制保留代码里的 \n 换行符，覆盖主题/插件可能的 white-space: normal 干扰。
+ * - white-space: pre 保留换行和空格
+ * - word-wrap/word-break: normal 防止超长行被强制换行
+ * - overflow-x: auto 长行允许横向滚动而非折断
+ */
+.markdown-preview-view pre,
+.markdown-rendered pre,
+.markdown-preview-view pre > code,
+.markdown-rendered pre > code {
+  white-space: pre !important;
+  word-wrap: normal !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+}
 .markdown-preview-view pre,
 .markdown-rendered pre {
-  background-color: #f5f7f9 !important;
+  overflow-x: auto !important;
+}
+
+/* 代码块背景与边框（用 CSS 变量统一颜色源）*/
+.markdown-preview-view pre,
+.markdown-rendered pre {
+  background-color: var(--code-background) !important;
   border: 1px solid #cccccc;
   border-radius: 6px;
 }
+
+/* Dark Mode 自动通过 --code-background 变量切换；
+ * 仅边框颜色需要单独处理（变量里没定义） */
 .theme-dark .markdown-preview-view pre,
-.theme-dark .markdown-rendered pre {
-  background-color: #1a1f23 !important;
-  border-color: #444444 !important;
-}
-.theme-dark .cm-s-obsidian .cm-content pre,
+.theme-dark .markdown-rendered pre,
 .theme-dark .cm-s-obsidian pre {
-  background-color: #1a1f23 !important;
   border-color: #444444 !important;
 }
 
-/* Remove injected code-block language watermark
- * (去除主题或插件注入的代码块语言标签水印) */
-.markdown-preview-view pre[class*="language-"]::before,
-.markdown-rendered pre[class*="language-"]::before {
-  content: none !important;
-  background: none !important;
-}
+/* === 语法高亮 Token 颜色 (屏幕显示) === */
 
-/* Prevent images inside code blocks from being blown up
- * (防止代码块中的图片被错误放大) */
-.markdown-preview-view pre img,
-.markdown-rendered pre img,
-.cm-s-obsidian pre img {
-  max-width: initial !important;
-  width: auto !important;
-  height: auto !important;
-}
-
-/* --- Syntax Highlighting Tokens — Screen Display --- */
-/* 语法高亮 Token 颜色 — 屏幕显示 */
-
-/* Comments (注释) */
+/* 注释 */
 .token.comment,
 .token.prolog,
 .token.doctype,
@@ -557,10 +499,10 @@ body .markdown-rendered h6 {
   font-style: italic;
 }
 
-/* Punctuation (标点) */
+/* 标点 */
 .token.punctuation { color: #555555; }
 
-/* Keywords (关键字) */
+/* 关键字 */
 .token.keyword,
 .token.atrule,
 .token.important {
@@ -568,7 +510,7 @@ body .markdown-rendered h6 {
   font-weight: bold;
 }
 
-/* Strings (字符串) */
+/* 字符串 */
 .token.string,
 .token.char,
 .token.attr-value,
@@ -576,7 +518,7 @@ body .markdown-rendered h6 {
   color: #8a3a0a;
 }
 
-/* Numbers, booleans (数字、布尔) */
+/* 数字、布尔 */
 .token.number,
 .token.boolean,
 .token.constant,
@@ -584,20 +526,20 @@ body .markdown-rendered h6 {
   color: #1a6a4a;
 }
 
-/* Functions, class names (函数、类名) */
+/* 函数、类名 */
 .token.function,
 .token.class-name {
   color: #5a3a8a;
 }
 
-/* Operators (操作符) */
+/* 操作符 */
 .token.operator,
 .token.entity,
 .token.url {
   color: #3a4a3a;
 }
 
-/* Properties, tags (属性、标签) */
+/* 属性、标签 */
 .token.property,
 .token.tag,
 .token.selector,
@@ -607,134 +549,137 @@ body .markdown-rendered h6 {
   color: #8a2a5a;
 }
 
-/* Regex, variables (正则、变量) */
+/* 正则、变量 */
 .token.regex,
 .token.variable {
   color: #6a5a2a;
 }
 
-/* CSS-specific strings (CSS 特定) */
+/* CSS 特定 */
 .language-css .token.string,
 .style .token.string {
   color: #4a6a2a;
 }
 
-/* Bold / italic metadata (粗体/斜体) */
+/* 粗体/斜体 */
 .token.bold { font-weight: bold; }
 .token.italic { font-style: italic; }
 .token.namespace { opacity: 0.7; }
 
-/* --- Dark Mode Syntax Highlighting --- */
-/* 暗色模式语法高亮 */
+/* === Dark Mode 高亮适配 === */
 .theme-dark .token.comment,
 .theme-dark .token.prolog,
 .theme-dark .token.doctype,
-.theme-dark .token.cdata {
-  color: #7aaa7a;
+.theme-dark .token.cdata { color: var(--code-comment) !important;
 }
-.theme-dark .token.punctuation { color: #aaaaaa; }
+.theme-dark .token.punctuation { color: var(--code-punctuation) !important; }
 .theme-dark .token.keyword,
-.theme-dark .token.atrule {
-  color: #6ab0f0;
+.theme-dark .token.atrule { color: var(--code-keyword) !important;
   font-weight: bold;
 }
 .theme-dark .token.string,
 .theme-dark .token.char,
-.theme-dark .token.attr-value {
-  color: #d08a5a;
+.theme-dark .token.attr-value { color: var(--code-string) !important;
 }
 .theme-dark .token.number,
 .theme-dark .token.boolean,
-.theme-dark .token.constant {
-  color: #7ac08a;
+.theme-dark .token.constant { color: var(--code-value) !important;
 }
 .theme-dark .token.function,
-.theme-dark .token.class-name {
-  color: #b08ae0;
+.theme-dark .token.class-name { color: var(--code-function) !important;
 }
 .theme-dark .token.operator,
 .theme-dark .token.entity,
-.theme-dark .token.url {
-  color: #9aaa8a;
+.theme-dark .token.url { color: var(--code-operator) !important;
 }
 .theme-dark .token.property,
 .theme-dark .token.tag,
 .theme-dark .token.selector,
 .theme-dark .token.attr-name,
-.theme-dark .token.builtin {
-  color: #e090b0;
+.theme-dark .token.builtin { color: var(--code-property) !important;
 }
 .theme-dark .token.regex,
-.theme-dark .token.variable {
-  color: #c0b070;
+.theme-dark .token.variable { color: var(--code-value) !important;
 }
 .theme-dark .language-css .token.string,
 .theme-dark .style .token.string {
   color: #8aba6a;
 }
 
-/* --- Editor Mode (Source Mode) Syntax Highlighting --- */
-/* 编辑模式代码高亮 — CodeMirror uses .cm-* classes */
+/* 不覆盖具体插件管理的颜色 — 仅在主题未提供时回退 */
 
-/* Comments (注释) */
+/* === 编辑模式 (Source Mode) 代码高亮 === */
+/* CodeMirror 使用 .cm-* 类, 需单独设置 */
+
+/* 注释 */
 .cm-s-obsidian .cm-comment {
   color: #6a8a6a !important;
   font-style: italic;
 }
-/* Keywords (关键字) */
+
+/* 关键字 */
 .cm-s-obsidian .cm-keyword {
   color: #1a5a9a !important;
   font-weight: bold;
 }
-/* Strings (字符串) */
+
+/* 字符串 */
 .cm-s-obsidian .cm-string {
   color: #8a3a0a !important;
 }
-/* Numbers (数字) */
+
+/* 数字 */
 .cm-s-obsidian .cm-number {
   color: #1a6a4a !important;
 }
-/* Operators (运算符) */
+
+/* 运算符 */
 .cm-s-obsidian .cm-operator {
   color: #3a4a3a !important;
 }
-/* Variables / properties (变量/属性) */
+
+/* 变量/属性 */
 .cm-s-obsidian .cm-variable,
 .cm-s-obsidian .cm-property {
   color: #8a2a5a !important;
 }
-/* Functions / methods (函数/方法) */
+
+/* 函数/方法 */
 .cm-s-obsidian .cm-def,
 .cm-s-obsidian .cm-variable-2 {
   color: #5a3a8a !important;
 }
-/* Types / classes (类型/类名) */
+
+/* 类型/类名 */
 .cm-s-obsidian .cm-type,
 .cm-s-obsidian .cm-variable-3 {
   color: #2a6a5a !important;
 }
-/* Tags / attributes (标签/属性) */
+
+/* 标签/属性 */
 .cm-s-obsidian .cm-tag,
 .cm-s-obsidian .cm-attribute {
   color: #8a2a5a !important;
 }
-/* Built-in constants (内置常量) */
+
+/* 内置常量 */
 .cm-s-obsidian .cm-atom,
 .cm-s-obsidian .cm-bracket {
   color: #1a5a9a !important;
 }
-/* Metadata (元数据) */
+
+/* 元数据 */
 .cm-s-obsidian .cm-meta {
   color: #6a5a8a !important;
 }
-/* Qualifiers / builtins (修饰/内置) */
+
+/* 引用/链接 */
 .cm-s-obsidian .cm-qualifier,
 .cm-s-obsidian .cm-builtin {
   color: #4a6a8a !important;
 }
 
-/* --- Dark Mode — Editor Syntax --- */
-/* 暗色模式 — 编辑模式高亮 */
+/* === Dark Mode 编辑模式高亮 === */
 .theme-dark .cm-s-obsidian .cm-comment { color: #7aaa7a !important; }
 .theme-dark .cm-s-obsidian .cm-keyword { color: #6ab0f0 !important; }
 .theme-dark .cm-s-obsidian .cm-string { color: #d08a5a !important; }
@@ -754,118 +699,60 @@ body .markdown-rendered h6 {
 .theme-dark .cm-s-obsidian .cm-qualifier,
 .theme-dark .cm-s-obsidian .cm-builtin { color: #8ab0d0 !important; }
 
-/* Do NOT override any colors managed by the Code Styler plugin.
- * These only serve as fallbacks when the theme doesn't provide them.
- * 不覆盖 Code Styler 管理的任何颜色 — 仅在主题未提供时回退 */
-
-/* --- Preview Mode — Forced Syntax Highlighting --- */
-/* 预览模式 — 强制着色 (independent of Code Styler / Prism) */
-.markdown-preview-view pre code[class*="language-"] .token.comment,
-.markdown-preview-view pre code[class*="language-"] .token.prolog,
-.markdown-preview-view pre code[class*="language-"] .token.doctype,
-.markdown-preview-view pre code[class*="language-"] .token.cdata,
-.markdown-rendered pre code[class*="language-"] .token.comment,
-.markdown-rendered pre code[class*="language-"] .token.prolog,
-.markdown-rendered pre code[class*="language-"] .token.doctype,
-.markdown-rendered pre code[class*="language-"] .token.cdata {
-  color: #708070 !important; font-style: italic;
-}
-.markdown-preview-view pre code[class*="language-"] .token.keyword,
-.markdown-preview-view pre code[class*="language-"] .token.atrule,
-.markdown-rendered pre code[class*="language-"] .token.keyword,
-.markdown-rendered pre code[class*="language-"] .token.atrule {
-  color: #2070c0 !important; font-weight: bold;
-}
-.markdown-preview-view pre code[class*="language-"] .token.string,
-.markdown-preview-view pre code[class*="language-"] .token.char,
-.markdown-preview-view pre code[class*="language-"] .token.attr-value,
-.markdown-rendered pre code[class*="language-"] .token.string,
-.markdown-rendered pre code[class*="language-"] .token.char,
-.markdown-rendered pre code[class*="language-"] .token.attr-value {
-  color: #b05020 !important;
-}
-.markdown-preview-view pre code[class*="language-"] .token.number,
-.markdown-preview-view pre code[class*="language-"] .token.boolean,
-.markdown-rendered pre code[class*="language-"] .token.number,
-.markdown-rendered pre code[class*="language-"] .token.boolean {
-  color: #208050 !important;
-}
-.markdown-preview-view pre code[class*="language-"] .token.function,
-.markdown-rendered pre code[class*="language-"] .token.function {
-  color: #7030a0 !important;
-}
-.markdown-preview-view pre code[class*="language-"] .token.class-name,
-.markdown-rendered pre code[class*="language-"] .token.class-name {
-  color: #207080 !important; font-weight: bold;
-}
-.markdown-preview-view pre code[class*="language-"] .token.operator,
-.markdown-rendered pre code[class*="language-"] .token.operator {
-  color: #505050 !important;
-}
-.markdown-preview-view pre code[class*="language-"] .token.property,
-.markdown-preview-view pre code[class*="language-"] .token.tag,
-.markdown-rendered pre code[class*="language-"] .token.property,
-.markdown-rendered pre code[class*="language-"] .token.tag {
-  color: #9030a0 !important;
-}
-.markdown-preview-view pre code[class*="language-"] .token.builtin,
-.markdown-rendered pre code[class*="language-"] .token.builtin {
-  color: #307090 !important;
+/* 不覆盖具体插件管理的颜色 — 仅在主题未提供时回退 */
+.markdown-preview-view pre[class*="language-"]::before,
+.markdown-rendered pre[class*="language-"]::before {
+  content: none !important;
+  background: none !important;
 }
 
+/* 防止代码块中的图片被错误放大 */
+.markdown-preview-view pre img,
+.markdown-rendered pre img,
+.cm-s-obsidian pre img {
+  max-width: initial !important;
+  width: auto !important;
+  height: auto !important;
+}
 
-
-/* ==========================================================================
- *  8. Inline Formatting — Preview Mode
- *  行内格式 — 预览模式
- *  ========================================================================== */
-
-/* Paragraph & list line height (段落和列表行高) */
+/* ================================ */
+/* ===== 正文行内格式 ===== */
+/* ================================ */
 .markdown-preview-view p,
 .markdown-rendered p,
 .markdown-preview-view li,
 .markdown-rendered li {
   line-height: 1.7;
 }
-
-/* Bold (加粗) */
 .markdown-preview-view strong,
 .markdown-rendered strong,
 .markdown-preview-view b,
 .markdown-rendered b {
   color: #0d5c4a !important;
 }
-
-/* Italic (斜体) */
 .markdown-preview-view em,
 .markdown-rendered em,
 .markdown-preview-view i,
 .markdown-rendered i {
   color: #1a7a6a !important;
 }
-
-/* Strikethrough (删除线) */
 .markdown-preview-view del,
 .markdown-rendered del {
   color: #1a7a6a !important;
 }
-
-/* Underline (下划线) */
 .markdown-preview-view u,
 .markdown-rendered u {
   color: #1a7a6a !important;
   text-decoration: underline solid #1a7a6a;
   text-underline-offset: 2px;
 }
-
-/* Links (链接) */
 .markdown-preview-view a,
 .markdown-rendered a {
   color: #1a7a6a !important;
   text-decoration: underline dotted #1a7a6a;
 }
 
-/* Prevent linked images from stretching (链接内图片不拉伸) */
+/* 链接内图片不拉伸 */
 .markdown-preview-view a img,
 .markdown-rendered a img {
   width: 1em !important;
@@ -874,21 +761,16 @@ body .markdown-rendered h6 {
   display: inline-block;
 }
 
-/* Highlight (高亮标记) */
+/* 高亮 */
 .markdown-preview-view mark,
 .markdown-rendered mark {
   background-color: #f2c94c;
   color: #1a1a1a;
 }
 
-
-
-/* ==========================================================================
- *  9. Blockquotes
- *  引用块
- *  ========================================================================== */
-
-/* Preview mode (预览模式) */
+/* ================================ */
+/* ===== 引用块 ===== */
+/* ================================ */
 .markdown-preview-view blockquote,
 .markdown-rendered blockquote {
   background: #f8fafa !important;
@@ -905,61 +787,11 @@ body .markdown-rendered h6 {
   margin: 0;
 }
 
-/* Editor (Source) mode — compact, aesthetically pleasing
- * 编辑模式引用块 — 紧凑美观风格
- *
- * - Covers all nesting levels (quote-1 / quote-2 / quote-3)
- * - The > marker is toned down (light, thin, semi-transparent)
- *   so the content text is the visual focus
- * - > 标记弱化（浅色、细体、半透明），让正文成为视觉焦点 */
-.markdown-source-view .cm-line.HyperMD-quote,
-.markdown-source-view .cm-line.HyperMD-quote-1,
-.markdown-source-view .cm-line.HyperMD-quote-2,
-.markdown-source-view .cm-line.HyperMD-quote-3 {
-  padding-left: 0.6em !important;
-  text-indent: 0 !important;
-  border-left: 4px solid #1a7a6a !important;
-  margin-left: 0 !important;
-  background-color: #f8fafa !important;
-  line-height: 1.7 !important;
-}
+/* ================================ */
+/* ===== 表格 (双模式适配) ===== */
+/* ================================ */
 
-/* > marker: subtle light green (弱化 > 符号为浅绿细体) */
-.markdown-source-view .HyperMD-quote .cm-formatting-quote {
-  margin-right: 0.25em !important;
-  color: #7aaa9a !important;
-  font-weight: normal !important;
-  opacity: 0.7;
-}
-
-/* Dark mode (暗色模式引用块) */
-.theme-dark .markdown-preview-view blockquote,
-.theme-dark .markdown-rendered blockquote {
-  background: #1a1f1e !important;
-  border-left-color: #4db89a !important;
-  color: #c0c0c0 !important;
-}
-.theme-dark .markdown-source-view .cm-line.HyperMD-quote,
-.theme-dark .markdown-source-view .cm-line.HyperMD-quote-1,
-.theme-dark .markdown-source-view .cm-line.HyperMD-quote-2,
-.theme-dark .markdown-source-view .cm-line.HyperMD-quote-3 {
-  border-left-color: #4db89a !important;
-  background-color: #1a1f1e !important;
-  color: #c0c0c0 !important;
-}
-.theme-dark .markdown-source-view .HyperMD-quote .cm-formatting-quote {
-  color: #6acaba !important;
-  opacity: 0.7;
-}
-
-
-
-/* ==========================================================================
- *  10. Tables — Both Modes with Dark Mode Support
- *  表格 — 双模式适配（含暗色模式）
- *  ========================================================================== */
-
-/* --- Preview Mode (预览模式) --- */
+/* --- 预览模式 --- */
 .markdown-preview-view table,
 .markdown-rendered table {
   width: 100% !important;
@@ -972,7 +804,7 @@ body .markdown-rendered h6 {
   background: #ffffff !important;
 }
 
-/* Table headers (表头) */
+/* 表头 */
 .markdown-preview-view th,
 .markdown-rendered th {
   background: #1a7a6a !important;
@@ -984,7 +816,7 @@ body .markdown-rendered h6 {
   border: 1px solid #cccccc;
 }
 
-/* Table cells (单元格) */
+/* 单元格 */
 .markdown-preview-view td,
 .markdown-rendered td {
   background: #ffffff !important;
@@ -994,13 +826,13 @@ body .markdown-rendered h6 {
   font-size: 0.88em;
 }
 
-/* Zebra striping (斑马纹) */
+/* 斑马纹 */
 .markdown-preview-view tr:nth-child(even) td,
 .markdown-rendered tr:nth-child(even) td {
   background: #f8fafa !important;
 }
 
-/* Inline code inside table cells (表格内行内代码) */
+/* 表格内行内代码 */
 .markdown-preview-view td code:not([class*="language-"]),
 .markdown-rendered td code:not([class*="language-"]) {
   background-color: #edf2f0;
@@ -1013,7 +845,7 @@ body .markdown-rendered h6 {
   color: #e89191 !important;
 }
 
-/* Remove corner rounding on header cells (表头无圆角) */
+/* 表头无圆角 */
 .markdown-preview-view th:first-child,
 .markdown-rendered th:first-child,
 .markdown-preview-view th:last-child,
@@ -1021,7 +853,7 @@ body .markdown-rendered h6 {
   border-radius: 0 !important;
 }
 
-/* --- Editor Mode — Table cells (编辑模式表格) --- */
+/* --- 编辑模式表格 --- */
 .cm-content .table-cell {
   border: 1px solid #cccccc;
   padding: 6px 8px;
@@ -1032,7 +864,7 @@ body .markdown-rendered h6 {
   border-bottom: 1px solid #cccccc;
 }
 
-/* --- Dark Mode — Tables (暗色模式表格) --- */
+/* --- Dark Mode 表格 --- */
 .theme-dark .markdown-preview-view table,
 .theme-dark .markdown-rendered table {
   border-color: #444444 !important;
@@ -1065,14 +897,11 @@ body .markdown-rendered h6 {
   border-color: #444444 !important;
 }
 
+/* ================================ */
+/* == Dark Mode 行内格式 ===== */
+/* ================================ */
 
-
-/* ==========================================================================
- *  11. Dark Mode — Inline Formatting
- *  暗色模式 — 行内格式
- *  ========================================================================== */
-
-/* Bold — bright gold-green (加粗用亮金绿色) */
+/* 加粗 — 暗色模式用亮金绿色 */
 .theme-dark .markdown-preview-view strong,
 .theme-dark .markdown-rendered strong,
 .theme-dark .markdown-preview-view b,
@@ -1081,7 +910,7 @@ body .markdown-rendered h6 {
   color: #5fdbb0 !important;
 }
 
-/* Italic (斜体) */
+/* 斜体 */
 .theme-dark .markdown-preview-view em,
 .theme-dark .markdown-rendered em,
 .theme-dark .markdown-preview-view i,
@@ -1090,54 +919,47 @@ body .markdown-rendered h6 {
   color: #7dd8ba !important;
 }
 
-/* Strikethrough (删除线) */
+/* 删除线 */
 .theme-dark .markdown-preview-view del,
 .theme-dark .markdown-rendered del,
 .theme-dark .cm-s-obsidian .cm-strikethrough {
   color: #7dd8ba !important;
 }
 
-/* Underline (下划线) */
+/* 下划线 */
 .theme-dark .markdown-preview-view u,
 .theme-dark .markdown-rendered u,
 .theme-dark .cm-s-obsidian .cm-underline {
   color: #7dd8ba !important;
 }
 
-/* Links (链接) */
+/* 链接 */
 .theme-dark .markdown-preview-view a,
 .theme-dark .markdown-rendered a,
 .theme-dark .cm-s-obsidian .cm-link {
   color: #5fdbb0 !important;
 }
 
-/* Highlight — keep yellow bg even in dark mode (高亮保持黄色背景) */
+/* 高亮 */
 .theme-dark .markdown-preview-view mark,
 .theme-dark .markdown-rendered mark {
   background-color: #f2c94c;
   color: #1a1a1a;
 }
 
-
-
-/* ==========================================================================
- *  12. Images
- *  图片
- *  ========================================================================== */
-.markdown-preview-view img,
-.markdown-rendered img {
-  max-width: 100%;
+/* Dark Mode 引用块 */
+.theme-dark .markdown-preview-view blockquote,
+.theme-dark .markdown-rendered blockquote {
+  background: #1a1f1e !important;
+  border-left-color: #4db89a !important;  /* 改为亮色，深色背景下对比度充足 */
+  color: #c0c0c0 !important;
 }
 
+/* ================================ */
+/* == 编辑/预览 一致性修复 ===== */
+/* ================================ */
 
-
-/* ==========================================================================
- *  13. Editor / Preview Consistency Fixes
- *  编辑/预览 一致性修复
- *  ========================================================================== */
-
-/* 1. Underline — comprehensive editor-mode coverage + wildcard fallback
- *    下划线 — 编辑模式全覆盖 + 通配回退 */
+/* 1. 下划线 — 编辑模式全覆盖 + 通配回退 */
 .cm-s-obsidian .cm-underline,
 .cm-s-obsidian span.cm-underline,
 .cm-s-obsidian span[class*="cm-underline"],
@@ -1153,8 +975,7 @@ body .markdown-rendered h6 {
   text-decoration-color: #7dd8ba !important;
 }
 
-/* 2. Heading margins — compact (edit mode)
- *    标题间距 — 紧凑型（编辑模式） */
+/* 2. 标题间距 — 紧凑型 (编辑模式) */
 .cm-s-obsidian .cm-header-1 { margin: 0.6em 0 0.4em 0 !important; }
 .cm-s-obsidian .cm-header-2 { margin: 0.5em 0 0.3em 0 !important; }
 .cm-s-obsidian .cm-header-3 { margin: 0.4em 0 0.2em 0 !important; }
@@ -1162,7 +983,52 @@ body .markdown-rendered h6 {
 .cm-s-obsidian .cm-header-5 { margin: 0.25em 0 0.1em 0 !important; }
 .cm-s-obsidian .cm-header-6 { margin: 0.2em 0 0.05em 0 !important; }
 
-/* 4. Editor mode table — auto width (编辑模式表格自适应宽度) */
+/* 3. 引用块 — 编辑模式（同时覆盖 Live Preview 和 Source Mode）
+ * 注意：
+ * - .cm-line.HyperMD-quote 在 Live Preview 和 Source Mode 下结构相同
+ * - 不加 .markdown-source-view 前缀更可靠（某些 Obsidian 版本下祖先类名会变）
+ * - text-indent: 0 用于抵消 Obsidian 默认主题可能存在的负 text-indent
+ */
+/* 引用块编辑模式 — 紧凑美观风格
+ * - 覆盖所有嵌套层级（quote-1 / quote-2 / quote-3）
+ * - 加 .markdown-source-view 前缀提高优先级，压过 Obsidian 默认行级 padding
+ * - > 标记弱化（浅色、细体、半透明），让正文成为视觉焦点
+ */
+.markdown-source-view .cm-line.HyperMD-quote,
+.markdown-source-view .cm-line.HyperMD-quote-1,
+.markdown-source-view .cm-line.HyperMD-quote-2,
+.markdown-source-view .cm-line.HyperMD-quote-3 {
+  padding-left: 0.6em !important;       /* 紧贴竖线，留出半个汉字的呼吸感 */
+  text-indent: 0 !important;
+  border-left: 4px solid #1a7a6a !important;
+  margin-left: 0 !important;
+  background-color: #f8fafa !important;
+  line-height: 1.7 !important;          /* 略宽行距让阅读舒适 */
+}
+
+/* > 符号：弱化为浅绿细体，不抢正文焦点 */
+.markdown-source-view .HyperMD-quote .cm-formatting-quote {
+  margin-right: 0.25em !important;
+  color: #7aaa9a !important;             /* 浅绿色 */
+  font-weight: normal !important;
+  opacity: 0.7;
+}
+
+/* Dark Mode */
+.theme-dark .markdown-source-view .cm-line.HyperMD-quote,
+.theme-dark .markdown-source-view .cm-line.HyperMD-quote-1,
+.theme-dark .markdown-source-view .cm-line.HyperMD-quote-2,
+.theme-dark .markdown-source-view .cm-line.HyperMD-quote-3 {
+  border-left-color: #4db89a !important;
+  background-color: #1a1f1e !important;
+  color: #c0c0c0 !important;
+}
+.theme-dark .markdown-source-view .HyperMD-quote .cm-formatting-quote {
+  color: #6acaba !important;
+  opacity: 0.7;
+}
+
+/* 4. 编辑模式表格 — 自适应宽度 */
 .cm-s-obsidian .cm-table-widget {
   width: 100% !important;
   max-width: 100% !important;
@@ -1173,27 +1039,94 @@ body .markdown-rendered h6 {
   max-width: 100% !important;
 }
 
-/* 5. Editor document width (编辑模式文档宽度) */
+/* 5. 编辑模式文档宽度 */
 .cm-s-obsidian .cm-content {
   max-width: var(--file-line-width, 700px);
   margin: 0 auto;
 }
 
+/* ================================ */
+/* == 代码高亮 — 预览模式强制着色 ===== */
+/* ================================ */
+
+/* 预览模式 token 颜色 — 统一引用 :root --code-* 变量（单一颜色源）
+ * 这样改变量值就改了全部颜色，与打印模式同源
+ */
+.markdown-preview-view pre code[class*="language-"] .token.comment,
+.markdown-preview-view pre code[class*="language-"] .token.prolog,
+.markdown-preview-view pre code[class*="language-"] .token.doctype,
+.markdown-preview-view pre code[class*="language-"] .token.cdata,
+.markdown-rendered pre code[class*="language-"] .token.comment,
+.markdown-rendered pre code[class*="language-"] .token.prolog,
+.markdown-rendered pre code[class*="language-"] .token.doctype,
+.markdown-rendered pre code[class*="language-"] .token.cdata {
+  color: var(--code-comment) !important; font-style: italic;
+}
+.markdown-preview-view pre code[class*="language-"] .token.keyword,
+.markdown-preview-view pre code[class*="language-"] .token.atrule,
+.markdown-rendered pre code[class*="language-"] .token.keyword,
+.markdown-rendered pre code[class*="language-"] .token.atrule {
+  color: var(--code-keyword) !important; font-weight: bold;
+}
+.markdown-preview-view pre code[class*="language-"] .token.string,
+.markdown-preview-view pre code[class*="language-"] .token.char,
+.markdown-preview-view pre code[class*="language-"] .token.attr-value,
+.markdown-rendered pre code[class*="language-"] .token.string,
+.markdown-rendered pre code[class*="language-"] .token.char,
+.markdown-rendered pre code[class*="language-"] .token.attr-value {
+  color: var(--code-string) !important;
+}
+.markdown-preview-view pre code[class*="language-"] .token.number,
+.markdown-preview-view pre code[class*="language-"] .token.boolean,
+.markdown-rendered pre code[class*="language-"] .token.number,
+.markdown-rendered pre code[class*="language-"] .token.boolean {
+  color: var(--code-value) !important;
+}
+.markdown-preview-view pre code[class*="language-"] .token.function,
+.markdown-rendered pre code[class*="language-"] .token.function {
+  color: var(--code-function) !important;
+}
+.markdown-preview-view pre code[class*="language-"] .token.class-name,
+.markdown-rendered pre code[class*="language-"] .token.class-name {
+  color: var(--code-function) !important; font-weight: bold;
+}
+.markdown-preview-view pre code[class*="language-"] .token.operator,
+.markdown-rendered pre code[class*="language-"] .token.operator {
+  color: var(--code-operator) !important;
+}
+.markdown-preview-view pre code[class*="language-"] .token.property,
+.markdown-preview-view pre code[class*="language-"] .token.tag,
+.markdown-rendered pre code[class*="language-"] .token.property,
+.markdown-rendered pre code[class*="language-"] .token.tag {
+  color: var(--code-property) !important;
+}
+.markdown-preview-view pre code[class*="language-"] .token.builtin,
+.markdown-rendered pre code[class*="language-"] .token.builtin {
+  color: var(--code-keyword) !important;
+}
 
 
-/* ==========================================================================
- *  14. Line Numbers — Editor Mode & Preview Mode
- *  行号样式 — 编辑模式 + 预览模式
- *  ==========================================================================
- *  Prerequisites / 重要前提:
- *  1. Editor line numbers: Settings → Editor → Show line number
- *  2. Preview code-block line numbers require a plugin
- *     (Code Styler / Better Codeblock etc.) — Obsidian doesn't support
- *     this natively via CSS alone.
- *     预览模式代码块行号需安装插件，Obsidian 原生不支持纯 CSS 实现。
- * ========================================================================== */
+/* ================================ */
+/* ===== 图片 ===== */
+/* ================================ */
 
-/* --- Editor: Line number gutter --- */
+/* 确保图片在 dark 模式下也清晰 */
+.markdown-preview-view img,
+.markdown-rendered img {
+  max-width: 100%;
+}
+
+/* ================================= */
+/* ===== 行号样式（编辑模式 + 预览模式）===== */
+/* ================================= */
+/*
+ * 重要前提：
+ * 1. 编辑模式行号需在 设置 → 编辑器 → 显示行号 开启
+ * 2. 预览模式代码块行号需安装代码块插件（Obsidian 原生不支持），
+ *    Obsidian 原生不支持纯 CSS 实现，因为代码块在预览模式无逐行 HTML 结构
+ */
+
+/* === 编辑模式：行号 gutter（开启 Editor → Show line number 后生效）=== */
 .cm-s-obsidian .cm-gutters,
 .markdown-source-view .cm-gutters {
   background-color: #f5f7f9 !important;
@@ -1214,7 +1147,7 @@ body .markdown-rendered h6 {
   font-weight: bold;
 }
 
-/* Dark mode gutter (暗色模式行号) */
+/* Dark Mode 行号 gutter */
 .theme-dark .cm-s-obsidian .cm-gutters,
 .theme-dark .markdown-source-view .cm-gutters {
   background-color: #1a1f23 !important;
@@ -1231,61 +1164,16 @@ body .markdown-rendered h6 {
   color: #4db89a !important;
 }
 
-/* --- Preview: Prism.js line-numbers plugin (needs plugin) --- */
-.markdown-preview-view pre[class*="language-"].line-numbers,
-.markdown-rendered pre[class*="language-"].line-numbers {
-  position: relative;
-  padding-left: 3.5em !important;
-  counter-reset: linenumber;
-}
-.line-numbers .line-numbers-rows {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 3em;
-  padding: 1em 0;
-  border-right: 1px solid #d0d6d3 !important;
-  background-color: #eef2f0;
-  user-select: none;
-}
-.line-numbers .line-numbers-rows > span {
-  display: block;
-  counter-increment: linenumber;
-  pointer-events: none;
-}
-.line-numbers .line-numbers-rows > span::before {
-  content: counter(linenumber);
-  color: #888888 !important;
-  display: block;
-  padding-right: 0.8em;
-  text-align: right;
-  font-size: 0.88em;
-}
+/* ================================ */
+/* ===== Obsidian 标准代码块变量 ===== */
+/* ================================ */
+/*
+ * 这些是 Obsidian 内置使用的代码块 CSS 变量。
+ * 定义后，无论使用 Advanced Codeblock 还是默认渲染，
+ * 都会自动套用以下配色（避免使用主题默认浅蓝/灰系）。
+ */
 
-/* Dark mode — preview line numbers (暗色模式预览行号) */
-.theme-dark .line-numbers .line-numbers-rows {
-  background-color: #1a1f23 !important;
-  border-right-color: #2d3338 !important;
-}
-.theme-dark .line-numbers .line-numbers-rows > span::before {
-  color: #666666 !important;
-}
-
-
-
-/* ==========================================================================
- *  15. Obsidian Built-in Code Block CSS Variables
- *  Obsidian 内置代码块 CSS 变量
- *  ==========================================================================
- *  These CSS custom properties are used by Obsidian's built-in code block
- *  renderer. Defining them here ensures consistent coloring regardless
- *  of which theme or plugin is active.
- *
- *  这些 CSS 变量由 Obsidian 内置的代码块渲染器使用。
- *  定义后，无论使用哪个主题或插件，代码着色都保持一致。
- * ========================================================================== */
-
-/* Light Mode (浅色模式) */
+/* Light Mode */
 :root {
   --code-background: #f5f7f9;
   --code-normal: #333333;
@@ -1297,11 +1185,11 @@ body .markdown-rendered h6 {
   --code-property: #8a2a5a;
   --code-punctuation: #555555;
   --code-operator: #3a4a3a;
-  --code-value: #1a6a4a;
+  --code-value: #1a6a4a;        /* 数字、布尔、常量 */
   --code-important: #c7254e;
 }
 
-/* Dark Mode (暗色模式) */
+/* Dark Mode */
 .theme-dark {
   --code-background: #1a1f23;
   --code-normal: #d0d0d0;
@@ -1317,95 +1205,86 @@ body .markdown-rendered h6 {
   --code-important: #e89191;
 }
 
+/* ══════════════════════════════════════
+   编辑模式：代码块行号（CSS counter）
+   在所有 Live Preview / Source 模式下生效
+   ══════════════════════════════════════ */
 
-
-/* ==========================================================================
- *  16. Advanced Codeblock Plugin — Line Numbers Compatibility
- *  Advanced Codeblock 插件 — 预览模式行号兼容
- *  ==========================================================================
- *  Advanced Codeblock injects the standard Prism.js structure:
- *    <pre class="line-numbers language-xxx">
- *      <code>...</code>
- *      <span aria-hidden="true" class="line-numbers-rows">
- *        <span></span><span></span>...
- *      </span>
- *    </pre>
- *  The CSS auto-numbers each empty <span> via CSS counters.
- *
- *  Key: pre.padding-left must be >= .line-numbers-rows.width
- *  to prevent the line-number container from overlapping the code content.
- * ========================================================================== */
-
-.markdown-preview-view pre.line-numbers,
-.markdown-rendered pre.line-numbers {
-  position: relative !important;
-  padding-left: 3em !important;
-  padding-right: 1em !important;
-  padding-top: 1em !important;
-  padding-bottom: 1em !important;
-  counter-reset: linenumber;
+/* 代码块首行：重置计数器 */
+.cm-s-obsidian .HyperMD-codeblock-begin {
+  counter-reset: code-line-num;
 }
 
-.markdown-preview-view pre.line-numbers > code,
-.markdown-rendered pre.line-numbers > code {
+/* 代码块中间行：预留行号空间 */
+.HyperMD-codeblock.cm-line:not(.HyperMD-codeblock-begin):not(.HyperMD-codeblock-end) {
+  padding-left: 3.2em !important;
   position: relative !important;
-  white-space: inherit !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  text-indent: 0 !important;
-  display: block !important;
 }
 
-.markdown-preview-view .line-numbers-rows,
-.markdown-rendered .line-numbers-rows {
-  position: absolute !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  width: 2.5em !important;
-  height: 100% !important;
-  padding: 1em 0 !important;
-  margin: 0 !important;
-  border-right: 1px solid #d0d6d3 !important;
-  background-color: #eef2f0 !important;
+/* 通过 ::after 显示行号 */
+.HyperMD-codeblock.cm-line:not(.HyperMD-codeblock-begin):not(.HyperMD-codeblock-end)::after {
+  align-items: flex-start;
+  color: var(--text-faint, #888);
+  content: counter(code-line-num);
+  counter-increment: code-line-num;
+  display: flex;
+  font-size: 0.82em;
+  height: 100%;
+  justify-content: flex-end;
+  left: 0;
+  position: absolute;
+  text-align: right;
+  width: 2.2em;
+  padding-right: 0.6em;
+  bottom: -2px;
+  border-right: 1px solid var(--border-color, #d0d6d3);
   user-select: none;
   pointer-events: none;
-  box-sizing: border-box !important;
-  letter-spacing: 0 !important;
 }
 
-.markdown-preview-view .line-numbers-rows > span,
-.markdown-rendered .line-numbers-rows > span {
-  display: block !important;
-  counter-increment: linenumber;
-  pointer-events: none;
-  padding: 0 0.5em 0 0 !important;
-  text-align: right !important;
-  font-size: 0.88em !important;
-  color: #888888 !important;
-  line-height: inherit !important;
+/* 当前激活行高亮 */
+.HyperMD-codeblock.cm-line.cm-active:not(.HyperMD-codeblock-begin):not(.HyperMD-codeblock-end)::after {
+  color: var(--text-accent, #1a7a6a) !important;
+  font-weight: bold;
 }
 
-/* When <span> is empty, generate the number via ::before counter
- * (uses empty <span> pattern from Prism-style plugins) */
-.markdown-preview-view .line-numbers-rows > span:empty::before,
-.markdown-rendered .line-numbers-rows > span:empty::before {
-  content: counter(linenumber) !important;
-  color: #888888 !important;
-  display: block;
+/* 深色模式适配 */
+.theme-dark .HyperMD-codeblock.cm-line:not(.HyperMD-codeblock-begin):not(.HyperMD-codeblock-end)::after {
+  color: #666;
+  border-right-color: #333;
+}
+.theme-dark .HyperMD-codeblock.cm-line.cm-active:not(.HyperMD-codeblock-begin):not(.HyperMD-codeblock-end)::after {
+  color: #4db89a !important;
 }
 
-/* Dark mode (暗色模式行号) */
-.theme-dark .markdown-preview-view .line-numbers-rows,
-.theme-dark .markdown-rendered .line-numbers-rows {
-  background-color: #1a1f23 !important;
-  border-right-color: #2d3338 !important;
+/* 隐藏折叠占位符干扰 */
+.HyperMD-codeblock .cm-foldPlaceholder::before {
+  display: none;
 }
-.theme-dark .markdown-preview-view .line-numbers-rows > span,
-.theme-dark .markdown-rendered .line-numbers-rows > span {
-  color: #666666 !important;
+
+/* =================================== */
+/* ===== 图片宽度自适应 ===== */
+/* =================================== */
+.markdown-preview-view img,
+.markdown-rendered img {
+  max-width: 100% !important;
+  max-height: 80vh !important;
+  height: auto !important;
+  object-fit: contain;
 }
-.theme-dark .markdown-preview-view .line-numbers-rows > span:empty::before,
-.theme-dark .markdown-rendered .line-numbers-rows > span:empty::before {
-  color: #666666 !important;
+
+.cm-s-obsidian img {
+  max-width: 100% !important;
+  max-height: 80vh !important;
+  height: auto !important;
+  object-fit: contain;
+}
+
+/* =================================== */
+/* ===== Mermaid 图宽度自适应 ===== */
+/* =================================== */
+.mermaid svg {
+  max-width: 100%;
+  max-height: 80vh;
+  height: auto;
 }
