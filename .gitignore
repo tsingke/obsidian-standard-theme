@@ -16,3 +16,4 @@ node_modules/
 .vscode/
 *.swp
 *.swo
+*.screenshot.png
