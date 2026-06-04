@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="example/demo.png" alt="Obsidian Standard Theme 预览" width="800">
-</p>
+
 
 <h1 align="center">📝 Obsidian Standard Theme</h1>
 
@@ -23,6 +21,11 @@
 与完整的 Obsidian 主题不同，这是一个**单一 CSS 文件**——下载后放入 vault 的 snippets 文件夹并启用即可，无主题冲突，无需复杂配置。
 
 > *English*: A single CSS snippet that unifies Light, Dark & Print modes for Obsidian. Just drop into your vault's snippets folder and enable.
+>
+
+<p align="center">
+  <img src="example/demo.png" alt="Obsidian Standard Theme 预览" width="800">
+</p>
 
 ---
 
@@ -44,6 +47,8 @@
 > 🖥 [在线效果预览](docs/preview.html) — 浏览器中打开，可实时切换浅色/深色模式。
 
 ---
+
+
 
 ## 🚀 快速安装
 
