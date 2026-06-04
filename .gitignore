@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Local project files
+node_modules/
+.tmp/
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

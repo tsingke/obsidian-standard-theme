@@ -1,0 +1,1332 @@
+/* ============================== */
+/*  obsidian-standard.css         */
+/*  统一 Light / Dark / Print     */
+/*  统一 Preview / Source 模式     */
+/* ============================== */
+
+/* ===================== */
+/* ===== 颜色变量 ===== */
+/* ===================== */
+:root {
+  --heading-bg: #1a7a6a;
+  --heading-accent: #f2c94c;
+  --heading-color: #ffffff;
+  --secondary-color: #2d8a6e;
+  --third-color: #3d9a78;
+  --fourth-color: #50aa88;
+  --fifth-color: #6aba9c;
+  --text-accent: #1a7a6a;
+  --text-accent-strong: #0d5c4a;
+  --highlight-color: #f2c94c;
+  --inline-bg: #eaf5f2;
+  --inline-color: #0d5c4a;
+  /* --blockquote-bg 和 --blockquote-bar 已废弃，引用块使用硬编码值 */
+  --table-bg: #ffffff;
+  --table-stripe: #f8fbfa;
+  --code-bg: #f5f7f9;
+  --border-color: #cccccc;
+  --body-color: #333333;
+}
+
+/* ===================== */
+/* == Dark Mode 变量覆盖 == */
+/* ===================== */
+.theme-dark {
+  --heading-bg: #1a7a6a;
+  --heading-color: #f0f0f0;
+  --secondary-color: #4db89a;
+  --third-color: #63c8aa;
+  --fourth-color: #7dd8ba;
+  --fifth-color: #98e5cc;
+  --text-accent: #4db89a;
+  --text-accent-strong: #7dd8ba;
+  --inline-bg: #1a2f2a;
+  --inline-color: #7dd8ba;
+  --blockquote-bg: #1a2a25;
+  --table-bg: #1e1e1e;
+  --table-stripe: #252525;
+  --code-bg: #1a1f23;
+  --border-color: #444444;
+  --body-color: #d0d0d0;
+}
+
+/* ===================== */
+/* ===== Print / PDF ==== */
+/* ===================== */
+@media print {
+  :root {
+    /* CSS 自定义属性不支持 !important，此处去除，依赖下方硬编码规则保障打印效果 */
+    --heading-bg: #1a7a6a;
+    --secondary-color: #1d6b52;
+    --third-color: #227a5e;
+    --fourth-color: #2d8a6e;
+    --fifth-color: #3d9a78;
+    --text-accent: #1a7a6a;
+    --text-accent-strong: #0a3d2e;
+    --inline-bg: #e8f0ed;
+    --inline-color: #0a3d2e;
+    --code-bg: #f0f3f5;
+    --body-color: #1a1a1a;
+    --table-bg: #ffffff;
+    --table-stripe: #f5f7f8;
+    --border-color: #999999;
+  }
+
+  /* Print: ensure dark text for readability */
+  body { color: #1a1a1a !important; }
+
+  /* Print: code blocks get distinct background */
+  pre, code {
+    background: #f5f6f8 !important;
+    color: #1a1a1a !important;
+  }
+
+  /* Print: code syntax token colors — 限定在代码块内，避免污染正文 */
+  pre code .token.comment,
+  pre code .token.prolog,
+  pre code .token.doctype,
+  pre code .token.cdata { color: #5a7a5a !important; font-style: italic; }
+  pre code .token.punctuation { color: #4a4a4a !important; }
+  pre code .token.property,
+  pre code .token.tag,
+  pre code .token.boolean,
+  pre code .token.number,
+  pre code .token.constant,
+  pre code .token.symbol,
+  pre code .token.deleted { color: #8a2a5a !important; }
+  pre code .token.selector,
+  pre code .token.attr-name,
+  pre code .token.string,
+  pre code .token.char,
+  pre code .token.builtin,
+  pre code .token.inserted { color: #2a5a8a !important; }
+  pre code .token.operator,
+  pre code .token.entity,
+  pre code .token.url { color: #4a4a2a !important; }
+  pre code .token.atrule,
+  pre code .token.attr-value,
+  pre code .token.keyword { color: #1a5a9a !important; font-weight: bold; }
+  pre code .token.function,
+  pre code .token.class-name { color: #5a3a8a !important; }
+  pre code .token.regex,
+  pre code .token.important,
+  pre code .token.variable { color: #8a6a1a !important; }
+  .language-css pre code .token.string,
+  .style pre code .token.string { color: #4a6a2a !important; }
+  pre code .token.important,
+  pre code .token.bold { font-weight: bold; }
+  pre code .token.italic { font-style: italic; }
+
+  /* Print: 语言特定 token */
+  .language-c pre code .token.keyword,
+  .language-cpp pre code .token.keyword { color: #1a4a8a !important; }
+  .language-python pre code .token.keyword { color: #8a3a1a !important; }
+  .language-matlab pre code .token.keyword { color: #1a5a9a !important; }
+  .language-java pre code .token.keyword { color: #1a3a8a !important; }
+  .language-rust pre code .token.keyword { color: #5a2a1a !important; }
+  .language-go pre code .token.keyword { color: #1a6a8a !important; }
+  .language-sql pre code .token.keyword { color: #2a5a8a !important; font-weight: bold; }
+  .language-bash pre code .token.function { color: #2a4a6a !important; }
+  .language-json pre code .token.property { color: #4a2a6a !important; }
+  .language-yaml pre code .token.key { color: #5a2a4a !important; }
+  .language-latex pre code .token.keyword { color: #6a3a5a !important; }
+  .language-markdown pre code .token.url { color: #3a5a8a !important; text-decoration: underline; }
+
+  /* Print: darker heading colors */
+  h3, .cm-header-3 { color: #1d6b52 !important; }
+  h4, .cm-header-4 { color: #227a5e !important; }
+  h5, .cm-header-5 { color: #2d8a6e !important; }
+  h6, .cm-header-6 { color: #3d9a78 !important; }
+
+  /* Print: H1 保留深绿背景 + 白字 + 黄色左侧竖线（与屏幕样式一致）
+   * print-color-adjust: exact 强制浏览器/打印机输出背景色，
+   * 否则多数打印环境会忽略 background-color，导致白字消失。
+   */
+  h1,
+  body .markdown-preview-view h1,
+  body .markdown-rendered h1 {
+    background-color: #1a7a6a !important;
+    color: #ffffff !important;
+    padding: 8px 14px !important;
+    position: relative !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  body .markdown-preview-view h1::after,
+  body .markdown-rendered h1::after {
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 6px !important;
+    height: 100% !important;
+    background-color: #f2c94c !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Print: H2 保留下划线装饰，颜色加深 */
+  h2,
+  body .markdown-preview-view h2,
+  body .markdown-rendered h2 {
+    color: #1a7a6a !important;
+  }
+  body .markdown-preview-view h2::after,
+  body .markdown-rendered h2::after {
+    background-color: #f2c94c !important;   /* 保留黄色下划线 */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Print: 引用块去除背景色，保留左边框 */
+  blockquote,
+  .markdown-preview-view blockquote,
+  .markdown-rendered blockquote {
+    background: none !important;
+    border-left: 3px solid #1a7a6a !important;
+    padding-left: 1em !important;
+    color: #333333 !important;
+  }
+
+  /* Print: table borders */
+  table, th, td { border-color: #888888 !important; }
+  td { background: #ffffff !important; color: #1a1a1a !important; }
+  th {
+    background: #1a7a6a !important;
+    color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+/* ================================ */
+/* ===== 笔记正文颜色 (仅限笔记区域) ===== */
+/* ================================ */
+
+/* Light: 笔记正文深灰色 */
+.markdown-preview-view,
+.markdown-rendered {
+  color: #333333;
+}
+
+/* Dark: 笔记正文亮灰色 */
+.theme-dark .markdown-preview-view,
+.theme-dark .markdown-rendered {
+  color: #d0d0d0;
+}
+.theme-dark .markdown-preview-view p,
+.theme-dark .markdown-rendered p,
+.theme-dark .markdown-preview-view li,
+.theme-dark .markdown-rendered li,
+.theme-dark .markdown-preview-view span:not([class*="token"]):not([class*="cm-"]),
+.theme-dark .markdown-rendered span:not([class*="token"]):not([class*="cm-"]) {
+  color: #d0d0d0;
+}
+
+/* ================================ */
+/* ===== 预览模式 Headings ===== */
+/* ================================ */
+
+/* H1 — 硬编码颜色，不受主题切换影响 */
+body .markdown-preview-view h1,
+body .markdown-rendered h1 {
+  background-color: #1a7a6a !important;
+  color: #ffffff !important;
+  padding: 8px 14px !important;
+  font-weight: bold !important;
+  margin-top: 1.2em !important;
+  margin-bottom: 1em !important;
+  font-size: 1.3em !important;
+  position: relative !important;
+  border-radius: 4px !important;          /* 圆角 */
+  overflow: hidden !important;             /* 让内部 ::after 金色竖线被圆角剪裁 */
+}
+body .markdown-preview-view h1::after,
+body .markdown-rendered h1::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  width: 6px !important;
+  height: 100% !important;
+  background-color: #f2c94c !important;
+}
+
+/* H2 — 硬编码颜色 */
+body .markdown-preview-view h2,
+body .markdown-rendered h2 {
+  color: #1a7a6a !important;
+  font-weight: bold !important;
+  padding-bottom: 4px !important;
+  margin-top: 1.5em !important;
+  margin-bottom: 1em !important;
+  font-size: 1.15em !important;
+  border-bottom: none !important;
+  position: relative !important;
+}
+body .markdown-preview-view h2::after,
+body .markdown-rendered h2::after {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 2px !important;
+  background-color: #f2c94c !important;
+}
+
+/* H3 - H6 — 硬编码颜色 */
+body .markdown-preview-view h3,
+body .markdown-rendered h3 {
+  color: #2d8a6e !important;
+  font-weight: bold !important;
+  margin-top: 1.2em !important;
+  margin-bottom: 0.6em !important;
+  font-size: 1.05em !important;
+}
+body .markdown-preview-view h4,
+body .markdown-rendered h4 {
+  color: #3d9a78 !important;
+  font-weight: bold !important;
+  margin-top: 1em !important;
+  margin-bottom: 0.5em !important;
+  font-size: 1em !important;
+}
+body .markdown-preview-view h5,
+body .markdown-rendered h5 {
+  color: #50aa88 !important;
+  font-weight: bold !important;
+  margin-top: 0.8em !important;
+  margin-bottom: 0.4em !important;
+  font-size: 0.95em !important;
+}
+body .markdown-preview-view h6,
+body .markdown-rendered h6 {
+  color: #6aba9c !important;
+  font-weight: bold !important;
+  margin-top: 0.6em !important;
+  margin-bottom: 0.3em !important;
+  font-size: 0.9em !important;
+}
+
+/* ================================ */
+/* ===== 编辑模式 Headings ===== */
+/* ================================ */
+/* H1 编辑模式：保持 inline，与 # 标记同一行
+ * 不要用 display: block / width: 100%，否则会把标题文字挤到下一行
+ * 深绿背景 + 金色竖线由父级 .cm-line.HyperMD-header-1 行容器负责（横跨整行）
+ */
+.cm-s-obsidian .cm-header-1 {
+  font-size: 1.3em;
+  color: #ffffff !important;
+  font-weight: bold;
+}
+
+/* H1 行容器：深绿背景 + 金色左侧竖线，横跨整个编辑区宽度 */
+.cm-s-obsidian .cm-line.HyperMD-header-1 {
+  background-color: #1a7a6a !important;
+  border-left: 6px solid #f2c94c !important;
+  padding: 4px 8px 4px 14px !important;   /* 与预览模式 h1 padding-left 对齐 */
+  color: #ffffff !important;               /* 确保 # 标记也是白色 */
+  border-radius: 4px !important;           /* 圆角 */
+}
+/* H2 编辑模式：保持 inline，与 ## 标记同一行
+ * 不要用 display: block / width: 100%，否则会把标题文字挤到下一行
+ * 下划线由父级 .cm-line.HyperMD-header-2 行容器负责（横跨整行宽度）
+ */
+.cm-s-obsidian .cm-header-2 {
+  font-size: 1.15em;
+  color: #1a7a6a !important;
+  font-weight: bold;
+}
+
+/* H2 黄色下划线：画在行容器上，横跨整个编辑区宽度 */
+.cm-s-obsidian .cm-line.HyperMD-header-2 {
+  border-bottom: 2px solid #f2c94c !important;
+  padding-bottom: 2px !important;
+}
+.cm-s-obsidian .cm-header-3 {
+  font-size: 1.05em;
+  color: #2d8a6e !important;
+  font-weight: bold;
+}
+.cm-s-obsidian .cm-header-4 {
+  font-size: 1em;
+  color: #3d9a78 !important;
+  font-weight: bold;
+}
+.cm-s-obsidian .cm-header-5 {
+  font-size: 0.95em;
+  color: #50aa88 !important;
+  font-weight: bold;
+}
+.cm-s-obsidian .cm-header-6 {
+  font-size: 0.9em;
+  color: #6aba9c !important;
+  font-weight: bold;
+}
+
+/* =================================== */
+/* ===== 标题自动编号 =====             */
+/* =================================== */
+/*
+  编号由 number-headings-obsidian 插件管理:
+  - 打开文件 → 自动刷新
+  - 保存文件 → 自动刷新
+  - H1 不编号, H2 起 1. 2. 3. ...
+  - 编号写入 Markdown 源码，导出 PDF 保留
+*/
+
+/* ================================ */
+/* ===== 编辑模式 行内格式 ===== */
+/* ================================ */
+.cm-s-obsidian .cm-strong {
+  color: #0d5c4a !important;
+}
+.cm-s-obsidian .cm-em {
+  color: #1a7a6a !important;
+}
+.cm-s-obsidian .cm-strikethrough {
+  color: #1a7a6a !important;
+}
+.cm-s-obsidian .cm-link {
+  color: #1a7a6a !important;
+  text-decoration: underline dotted #1a7a6a;
+}
+/* 编辑模式：下划线（含加粗下划线组合） */
+.cm-s-obsidian .cm-underline {
+  color: #1a7a6a !important;
+  text-decoration: underline solid #1a7a6a !important;
+  text-underline-offset: 2px;
+}
+/* 加粗+下划线组合 — 确保不是黑色 */
+.cm-s-obsidian .cm-strong.cm-underline,
+.cm-s-obsidian span.cm-strong span.cm-underline,
+.cm-s-obsidian span.cm-underline span.cm-strong,
+.cm-s-obsidian .cm-underline.cm-strong {
+  color: #0d5c4a !important;
+  text-decoration: underline solid #0d5c4a !important;
+}
+
+/* ================================ */
+/* ===== 行内代码 (双模式) ===== */
+/* ================================ */
+
+/* 编辑模式 */
+.cm-s-obsidian .cm-inline-code {
+  background-color: #edf2f0 !important;
+  color: #c7254e !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  font-weight: 500 !important;
+  border: 1px solid #dde4e2;
+}
+
+/* 预览模式 */
+.markdown-preview-view code:not([class*="language-"]),
+.markdown-rendered code:not([class*="language-"]) {
+  background-color: #edf2f0 !important;
+  color: #c7254e !important;
+  padding: 2px 6px !important;
+  border-radius: 4px;
+  font-weight: 500;
+  border: 1px solid #dde4e2;
+}
+
+/* Dark / Light 都确保行内代码可读 */
+.theme-dark .cm-s-obsidian .cm-inline-code,
+.theme-dark .markdown-preview-view code:not([class*="language-"]),
+.theme-dark .markdown-rendered code:not([class*="language-"]) {
+  background-color: #2d2d2d !important;
+  color: #e89191 !important;
+  border: 1px solid #444444;
+}
+
+/* ================================= */
+/* ===== 代码块 ===== */
+/* ================================= */
+
+/* 代码块背景与边框 */
+.markdown-preview-view pre,
+.markdown-rendered pre {
+  background-color: #f5f7f9 !important;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+}
+
+/* Dark Mode 代码块背景 */
+.theme-dark .markdown-preview-view pre,
+.theme-dark .markdown-rendered pre {
+  background-color: #1a1f23 !important;
+  border-color: #444444 !important;
+}
+
+/* 编辑模式 Dark Mode 代码块背景 */
+.theme-dark .cm-s-obsidian .cm-content pre,
+.theme-dark .cm-s-obsidian pre {
+  background-color: #1a1f23 !important;
+  border-color: #444444 !important;
+}
+
+/* === 语法高亮 Token 颜色 (屏幕显示) === */
+
+/* 注释 */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6a8a6a;
+  font-style: italic;
+}
+
+/* 标点 */
+.token.punctuation { color: #555555; }
+
+/* 关键字 */
+.token.keyword,
+.token.atrule,
+.token.important {
+  color: #1a5a9a;
+  font-weight: bold;
+}
+
+/* 字符串 */
+.token.string,
+.token.char,
+.token.attr-value,
+.token.inserted {
+  color: #8a3a0a;
+}
+
+/* 数字、布尔 */
+.token.number,
+.token.boolean,
+.token.constant,
+.token.symbol {
+  color: #1a6a4a;
+}
+
+/* 函数、类名 */
+.token.function,
+.token.class-name {
+  color: #5a3a8a;
+}
+
+/* 操作符 */
+.token.operator,
+.token.entity,
+.token.url {
+  color: #3a4a3a;
+}
+
+/* 属性、标签 */
+.token.property,
+.token.tag,
+.token.selector,
+.token.attr-name,
+.token.builtin,
+.token.deleted {
+  color: #8a2a5a;
+}
+
+/* 正则、变量 */
+.token.regex,
+.token.variable {
+  color: #6a5a2a;
+}
+
+/* CSS 特定 */
+.language-css .token.string,
+.style .token.string {
+  color: #4a6a2a;
+}
+
+/* 粗体/斜体 */
+.token.bold { font-weight: bold; }
+.token.italic { font-style: italic; }
+.token.namespace { opacity: 0.7; }
+
+/* === Dark Mode 高亮适配 === */
+.theme-dark .token.comment,
+.theme-dark .token.prolog,
+.theme-dark .token.doctype,
+.theme-dark .token.cdata {
+  color: #7aaa7a;
+}
+.theme-dark .token.punctuation { color: #aaaaaa; }
+.theme-dark .token.keyword,
+.theme-dark .token.atrule {
+  color: #6ab0f0;
+  font-weight: bold;
+}
+.theme-dark .token.string,
+.theme-dark .token.char,
+.theme-dark .token.attr-value {
+  color: #d08a5a;
+}
+.theme-dark .token.number,
+.theme-dark .token.boolean,
+.theme-dark .token.constant {
+  color: #7ac08a;
+}
+.theme-dark .token.function,
+.theme-dark .token.class-name {
+  color: #b08ae0;
+}
+.theme-dark .token.operator,
+.theme-dark .token.entity,
+.theme-dark .token.url {
+  color: #9aaa8a;
+}
+.theme-dark .token.property,
+.theme-dark .token.tag,
+.theme-dark .token.selector,
+.theme-dark .token.attr-name,
+.theme-dark .token.builtin {
+  color: #e090b0;
+}
+.theme-dark .token.regex,
+.theme-dark .token.variable {
+  color: #c0b070;
+}
+.theme-dark .language-css .token.string,
+.theme-dark .style .token.string {
+  color: #8aba6a;
+}
+
+/* 不覆盖 Code Styler 管理的任何颜色 — 仅在主题未提供时回退 */
+
+/* === 编辑模式 (Source Mode) 代码高亮 === */
+/* CodeMirror 使用 .cm-* 类, 需单独设置 */
+
+/* 注释 */
+.cm-s-obsidian .cm-comment {
+  color: #6a8a6a !important;
+  font-style: italic;
+}
+
+/* 关键字 */
+.cm-s-obsidian .cm-keyword {
+  color: #1a5a9a !important;
+  font-weight: bold;
+}
+
+/* 字符串 */
+.cm-s-obsidian .cm-string {
+  color: #8a3a0a !important;
+}
+
+/* 数字 */
+.cm-s-obsidian .cm-number {
+  color: #1a6a4a !important;
+}
+
+/* 运算符 */
+.cm-s-obsidian .cm-operator {
+  color: #3a4a3a !important;
+}
+
+/* 变量/属性 */
+.cm-s-obsidian .cm-variable,
+.cm-s-obsidian .cm-property {
+  color: #8a2a5a !important;
+}
+
+/* 函数/方法 */
+.cm-s-obsidian .cm-def,
+.cm-s-obsidian .cm-variable-2 {
+  color: #5a3a8a !important;
+}
+
+/* 类型/类名 */
+.cm-s-obsidian .cm-type,
+.cm-s-obsidian .cm-variable-3 {
+  color: #2a6a5a !important;
+}
+
+/* 标签/属性 */
+.cm-s-obsidian .cm-tag,
+.cm-s-obsidian .cm-attribute {
+  color: #8a2a5a !important;
+}
+
+/* 内置常量 */
+.cm-s-obsidian .cm-atom,
+.cm-s-obsidian .cm-bracket {
+  color: #1a5a9a !important;
+}
+
+/* 元数据 */
+.cm-s-obsidian .cm-meta {
+  color: #6a5a8a !important;
+}
+
+/* 引用/链接 */
+.cm-s-obsidian .cm-qualifier,
+.cm-s-obsidian .cm-builtin {
+  color: #4a6a8a !important;
+}
+
+/* === Dark Mode 编辑模式高亮 === */
+.theme-dark .cm-s-obsidian .cm-comment { color: #7aaa7a !important; }
+.theme-dark .cm-s-obsidian .cm-keyword { color: #6ab0f0 !important; }
+.theme-dark .cm-s-obsidian .cm-string { color: #d08a5a !important; }
+.theme-dark .cm-s-obsidian .cm-number { color: #7ac08a !important; }
+.theme-dark .cm-s-obsidian .cm-operator { color: #9aaa8a !important; }
+.theme-dark .cm-s-obsidian .cm-variable,
+.theme-dark .cm-s-obsidian .cm-property { color: #e090b0 !important; }
+.theme-dark .cm-s-obsidian .cm-def,
+.theme-dark .cm-s-obsidian .cm-variable-2 { color: #b08ae0 !important; }
+.theme-dark .cm-s-obsidian .cm-type,
+.theme-dark .cm-s-obsidian .cm-variable-3 { color: #8ac0b0 !important; }
+.theme-dark .cm-s-obsidian .cm-tag,
+.theme-dark .cm-s-obsidian .cm-attribute { color: #e090b0 !important; }
+.theme-dark .cm-s-obsidian .cm-atom,
+.theme-dark .cm-s-obsidian .cm-bracket { color: #7ab0e0 !important; }
+.theme-dark .cm-s-obsidian .cm-meta { color: #b0a0d0 !important; }
+.theme-dark .cm-s-obsidian .cm-qualifier,
+.theme-dark .cm-s-obsidian .cm-builtin { color: #8ab0d0 !important; }
+
+/* 去除主题或插件注入的代码块语言标签水印 */
+.markdown-preview-view pre[class*="language-"]::before,
+.markdown-rendered pre[class*="language-"]::before {
+  content: none !important;
+  background: none !important;
+}
+
+/* 防止代码块中的图片被错误放大 */
+.markdown-preview-view pre img,
+.markdown-rendered pre img,
+.cm-s-obsidian pre img {
+  max-width: initial !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* ================================ */
+/* ===== 正文行内格式 ===== */
+/* ================================ */
+.markdown-preview-view p,
+.markdown-rendered p,
+.markdown-preview-view li,
+.markdown-rendered li {
+  line-height: 1.7;
+}
+.markdown-preview-view strong,
+.markdown-rendered strong,
+.markdown-preview-view b,
+.markdown-rendered b {
+  color: #0d5c4a !important;
+}
+.markdown-preview-view em,
+.markdown-rendered em,
+.markdown-preview-view i,
+.markdown-rendered i {
+  color: #1a7a6a !important;
+}
+.markdown-preview-view del,
+.markdown-rendered del {
+  color: #1a7a6a !important;
+}
+.markdown-preview-view u,
+.markdown-rendered u {
+  color: #1a7a6a !important;
+  text-decoration: underline solid #1a7a6a;
+  text-underline-offset: 2px;
+}
+.markdown-preview-view a,
+.markdown-rendered a {
+  color: #1a7a6a !important;
+  text-decoration: underline dotted #1a7a6a;
+}
+
+/* 链接内图片不拉伸 */
+.markdown-preview-view a img,
+.markdown-rendered a img {
+  width: 1em !important;
+  height: 1em !important;
+  vertical-align: text-bottom;
+  display: inline-block;
+}
+
+/* 高亮 */
+.markdown-preview-view mark,
+.markdown-rendered mark {
+  background-color: #f2c94c;
+  color: #1a1a1a;
+}
+
+/* ================================ */
+/* ===== 引用块 ===== */
+/* ================================ */
+.markdown-preview-view blockquote,
+.markdown-rendered blockquote {
+  background: #f8fafa !important;
+  border-left: 4px solid #1a7a6a !important;
+  border-radius: 4px;
+  padding: 0.6em 1em 0.6em 1.2em !important;
+  margin: 0.7em 0 !important;
+  color: #444444;
+  line-height: 1.5;
+  font-size: 0.92em;
+}
+.markdown-preview-view blockquote > p,
+.markdown-rendered blockquote > p {
+  margin: 0;
+}
+
+/* ================================ */
+/* ===== 表格 (双模式适配) ===== */
+/* ================================ */
+
+/* --- 预览模式 --- */
+.markdown-preview-view table,
+.markdown-rendered table {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 1.4em 0;
+  border-radius: 0 !important;
+  border-collapse: collapse !important;
+  border-spacing: 0;
+  border: 1px solid #cccccc;
+  background: #ffffff !important;
+}
+
+/* 表头 */
+.markdown-preview-view th,
+.markdown-rendered th {
+  background: #1a7a6a !important;
+  color: #ffffff !important;
+  padding: 10px 8px;
+  font-weight: bold;
+  font-size: 0.95em;
+  text-align: left;
+  border: 1px solid #cccccc;
+}
+
+/* 单元格 */
+.markdown-preview-view td,
+.markdown-rendered td {
+  background: #ffffff !important;
+  color: #333333 !important;
+  padding: 8px;
+  border: 1px solid #cccccc;
+  font-size: 0.88em;
+}
+
+/* 斑马纹 */
+.markdown-preview-view tr:nth-child(even) td,
+.markdown-rendered tr:nth-child(even) td {
+  background: #f8fafa !important;
+}
+
+/* 表格内行内代码 */
+.markdown-preview-view td code:not([class*="language-"]),
+.markdown-rendered td code:not([class*="language-"]) {
+  background-color: #edf2f0;
+  color: #c7254e;
+  font-weight: 500;
+}
+.theme-dark .markdown-preview-view td code:not([class*="language-"]),
+.theme-dark .markdown-rendered td code:not([class*="language-"]) {
+  background-color: #2d2d2d !important;
+  color: #e89191 !important;
+}
+
+/* 表头无圆角 */
+.markdown-preview-view th:first-child,
+.markdown-rendered th:first-child,
+.markdown-preview-view th:last-child,
+.markdown-rendered th:last-child {
+  border-radius: 0 !important;
+}
+
+/* --- 编辑模式表格 --- */
+.cm-content .table-cell {
+  border: 1px solid #cccccc;
+  padding: 6px 8px;
+  background: #ffffff;
+  color: #333333;
+}
+.cm-content .table-row:last-child .table-cell {
+  border-bottom: 1px solid #cccccc;
+}
+
+/* --- Dark Mode 表格 --- */
+.theme-dark .markdown-preview-view table,
+.theme-dark .markdown-rendered table {
+  border-color: #444444 !important;
+  background: #1e1e1e !important;
+}
+.theme-dark .markdown-preview-view th,
+.theme-dark .markdown-rendered th {
+  background: #1a7a6a !important;
+  color: #ffffff !important;
+  border-color: #444444 !important;
+}
+.theme-dark .markdown-preview-view td,
+.theme-dark .markdown-rendered td {
+  background: #1e1e1e !important;
+  color: #d0d0d0 !important;
+  border-color: #444444 !important;
+}
+.theme-dark .markdown-preview-view tr:nth-child(even) td,
+.theme-dark .markdown-rendered tr:nth-child(even) td {
+  background: #252525 !important;
+}
+.theme-dark .markdown-preview-view td code:not([class*="language-"]),
+.theme-dark .markdown-rendered td code:not([class*="language-"]) {
+  background-color: #1a2f2a !important;
+  color: #7dd8ba !important;
+}
+.theme-dark .cm-content .table-cell {
+  background: #1e1e1e !important;
+  color: #d0d0d0 !important;
+  border-color: #444444 !important;
+}
+
+/* ================================ */
+/* == Dark Mode 行内格式 ===== */
+/* ================================ */
+
+/* 加粗 — 暗色模式用亮金绿色 */
+.theme-dark .markdown-preview-view strong,
+.theme-dark .markdown-rendered strong,
+.theme-dark .markdown-preview-view b,
+.theme-dark .markdown-rendered b,
+.theme-dark .cm-s-obsidian .cm-strong {
+  color: #5fdbb0 !important;
+}
+
+/* 斜体 */
+.theme-dark .markdown-preview-view em,
+.theme-dark .markdown-rendered em,
+.theme-dark .markdown-preview-view i,
+.theme-dark .markdown-rendered i,
+.theme-dark .cm-s-obsidian .cm-em {
+  color: #7dd8ba !important;
+}
+
+/* 删除线 */
+.theme-dark .markdown-preview-view del,
+.theme-dark .markdown-rendered del,
+.theme-dark .cm-s-obsidian .cm-strikethrough {
+  color: #7dd8ba !important;
+}
+
+/* 下划线 */
+.theme-dark .markdown-preview-view u,
+.theme-dark .markdown-rendered u,
+.theme-dark .cm-s-obsidian .cm-underline {
+  color: #7dd8ba !important;
+}
+
+/* 链接 */
+.theme-dark .markdown-preview-view a,
+.theme-dark .markdown-rendered a,
+.theme-dark .cm-s-obsidian .cm-link {
+  color: #5fdbb0 !important;
+}
+
+/* 高亮 */
+.theme-dark .markdown-preview-view mark,
+.theme-dark .markdown-rendered mark {
+  background-color: #f2c94c;
+  color: #1a1a1a;
+}
+
+/* Dark Mode 引用块 */
+.theme-dark .markdown-preview-view blockquote,
+.theme-dark .markdown-rendered blockquote {
+  background: #1a1f1e !important;
+  border-left-color: #4db89a !important;  /* 改为亮色，深色背景下对比度充足 */
+  color: #c0c0c0 !important;
+}
+
+/* ================================ */
+/* == 编辑/预览 一致性修复 ===== */
+/* ================================ */
+
+/* 1. 下划线 — 编辑模式全覆盖 + 通配回退 */
+.cm-s-obsidian .cm-underline,
+.cm-s-obsidian span.cm-underline,
+.cm-s-obsidian span[class*="cm-underline"],
+.cm-s-obsidian .HyperMD-line span[style*="underline"] {
+  color: #1a7a6a !important;
+  text-decoration: underline solid #1a7a6a !important;
+  text-underline-offset: 3px;
+}
+.theme-dark .cm-s-obsidian .cm-underline,
+.theme-dark .cm-s-obsidian span.cm-underline,
+.theme-dark .cm-s-obsidian span[class*="cm-underline"] {
+  color: #7dd8ba !important;
+  text-decoration-color: #7dd8ba !important;
+}
+
+/* 2. 标题间距 — 紧凑型 (编辑模式) */
+.cm-s-obsidian .cm-header-1 { margin: 0.6em 0 0.4em 0 !important; }
+.cm-s-obsidian .cm-header-2 { margin: 0.5em 0 0.3em 0 !important; }
+.cm-s-obsidian .cm-header-3 { margin: 0.4em 0 0.2em 0 !important; }
+.cm-s-obsidian .cm-header-4 { margin: 0.3em 0 0.15em 0 !important; }
+.cm-s-obsidian .cm-header-5 { margin: 0.25em 0 0.1em 0 !important; }
+.cm-s-obsidian .cm-header-6 { margin: 0.2em 0 0.05em 0 !important; }
+
+/* 3. 引用块 — 编辑模式（同时覆盖 Live Preview 和 Source Mode）
+ * 注意：
+ * - .cm-line.HyperMD-quote 在 Live Preview 和 Source Mode 下结构相同
+ * - 不加 .markdown-source-view 前缀更可靠（某些 Obsidian 版本下祖先类名会变）
+ * - text-indent: 0 用于抵消 Obsidian 默认主题可能存在的负 text-indent
+ */
+/* 引用块编辑模式 — 紧凑美观风格
+ * - 覆盖所有嵌套层级（quote-1 / quote-2 / quote-3）
+ * - 加 .markdown-source-view 前缀提高优先级，压过 Obsidian 默认行级 padding
+ * - > 标记弱化（浅色、细体、半透明），让正文成为视觉焦点
+ */
+.markdown-source-view .cm-line.HyperMD-quote,
+.markdown-source-view .cm-line.HyperMD-quote-1,
+.markdown-source-view .cm-line.HyperMD-quote-2,
+.markdown-source-view .cm-line.HyperMD-quote-3 {
+  padding-left: 0.6em !important;       /* 紧贴竖线，留出半个汉字的呼吸感 */
+  text-indent: 0 !important;
+  border-left: 4px solid #1a7a6a !important;
+  margin-left: 0 !important;
+  background-color: #f8fafa !important;
+  line-height: 1.7 !important;          /* 略宽行距让阅读舒适 */
+}
+
+/* > 符号：弱化为浅绿细体，不抢正文焦点 */
+.markdown-source-view .HyperMD-quote .cm-formatting-quote {
+  margin-right: 0.25em !important;
+  color: #7aaa9a !important;             /* 浅绿色 */
+  font-weight: normal !important;
+  opacity: 0.7;
+}
+
+/* Dark Mode */
+.theme-dark .markdown-source-view .cm-line.HyperMD-quote,
+.theme-dark .markdown-source-view .cm-line.HyperMD-quote-1,
+.theme-dark .markdown-source-view .cm-line.HyperMD-quote-2,
+.theme-dark .markdown-source-view .cm-line.HyperMD-quote-3 {
+  border-left-color: #4db89a !important;
+  background-color: #1a1f1e !important;
+  color: #c0c0c0 !important;
+}
+.theme-dark .markdown-source-view .HyperMD-quote .cm-formatting-quote {
+  color: #6acaba !important;
+  opacity: 0.7;
+}
+
+/* 4. 编辑模式表格 — 自适应宽度 */
+.cm-s-obsidian .cm-table-widget {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto;
+}
+.cm-s-obsidian .cm-table-widget table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* 5. 编辑模式文档宽度 */
+.cm-s-obsidian .cm-content {
+  max-width: var(--file-line-width, 700px);
+  margin: 0 auto;
+}
+
+/* ================================ */
+/* == 代码高亮 — 预览模式强制着色 ===== */
+/* ================================ */
+
+/* 确保预览模式代码块必定有颜色 (不依赖 Code Styler/Prism) */
+.markdown-preview-view pre code[class*="language-"] .token.comment,
+.markdown-preview-view pre code[class*="language-"] .token.prolog,
+.markdown-preview-view pre code[class*="language-"] .token.doctype,
+.markdown-preview-view pre code[class*="language-"] .token.cdata,
+.markdown-rendered pre code[class*="language-"] .token.comment,
+.markdown-rendered pre code[class*="language-"] .token.prolog,
+.markdown-rendered pre code[class*="language-"] .token.doctype,
+.markdown-rendered pre code[class*="language-"] .token.cdata {
+  color: #708070 !important; font-style: italic;
+}
+.markdown-preview-view pre code[class*="language-"] .token.keyword,
+.markdown-preview-view pre code[class*="language-"] .token.atrule,
+.markdown-rendered pre code[class*="language-"] .token.keyword,
+.markdown-rendered pre code[class*="language-"] .token.atrule {
+  color: #2070c0 !important; font-weight: bold;
+}
+.markdown-preview-view pre code[class*="language-"] .token.string,
+.markdown-preview-view pre code[class*="language-"] .token.char,
+.markdown-preview-view pre code[class*="language-"] .token.attr-value,
+.markdown-rendered pre code[class*="language-"] .token.string,
+.markdown-rendered pre code[class*="language-"] .token.char,
+.markdown-rendered pre code[class*="language-"] .token.attr-value {
+  color: #b05020 !important;
+}
+.markdown-preview-view pre code[class*="language-"] .token.number,
+.markdown-preview-view pre code[class*="language-"] .token.boolean,
+.markdown-rendered pre code[class*="language-"] .token.number,
+.markdown-rendered pre code[class*="language-"] .token.boolean {
+  color: #208050 !important;
+}
+.markdown-preview-view pre code[class*="language-"] .token.function,
+.markdown-rendered pre code[class*="language-"] .token.function {
+  color: #7030a0 !important;
+}
+.markdown-preview-view pre code[class*="language-"] .token.class-name,
+.markdown-rendered pre code[class*="language-"] .token.class-name {
+  color: #207080 !important; font-weight: bold;
+}
+.markdown-preview-view pre code[class*="language-"] .token.operator,
+.markdown-rendered pre code[class*="language-"] .token.operator {
+  color: #505050 !important;
+}
+.markdown-preview-view pre code[class*="language-"] .token.property,
+.markdown-preview-view pre code[class*="language-"] .token.tag,
+.markdown-rendered pre code[class*="language-"] .token.property,
+.markdown-rendered pre code[class*="language-"] .token.tag {
+  color: #9030a0 !important;
+}
+.markdown-preview-view pre code[class*="language-"] .token.builtin,
+.markdown-rendered pre code[class*="language-"] .token.builtin {
+  color: #307090 !important;
+}
+
+
+/* ================================ */
+/* ===== 图片 ===== */
+/* ================================ */
+
+/* 确保图片在 dark 模式下也清晰 */
+.markdown-preview-view img,
+.markdown-rendered img {
+  max-width: 100%;
+}
+
+/* ================================= */
+/* ===== 行号样式（编辑模式 + 预览模式）===== */
+/* ================================= */
+/*
+ * 重要前提：
+ * 1. 编辑模式行号需在 设置 → 编辑器 → 显示行号 开启
+ * 2. 预览模式代码块行号需安装插件（Code Styler / Better Codeblock 等），
+ *    Obsidian 原生不支持纯 CSS 实现，因为代码块在预览模式无逐行 HTML 结构
+ */
+
+/* === 编辑模式：行号 gutter（开启 Editor → Show line number 后生效）=== */
+.cm-s-obsidian .cm-gutters,
+.markdown-source-view .cm-gutters {
+  background-color: #f5f7f9 !important;
+  border-right: 1px solid #e0e6e3 !important;
+  color: #999999 !important;
+}
+.cm-s-obsidian .cm-lineNumbers .cm-gutterElement,
+.markdown-source-view .cm-lineNumbers .cm-gutterElement {
+  padding: 0 8px 0 12px !important;
+  color: #888888 !important;
+  font-size: 0.9em;
+  min-width: 2em;
+}
+.cm-s-obsidian .cm-activeLineGutter,
+.markdown-source-view .cm-activeLineGutter {
+  background-color: #eaf5f2 !important;
+  color: #1a7a6a !important;
+  font-weight: bold;
+}
+
+/* Dark Mode 行号 gutter */
+.theme-dark .cm-s-obsidian .cm-gutters,
+.theme-dark .markdown-source-view .cm-gutters {
+  background-color: #1a1f23 !important;
+  border-right-color: #2d3338 !important;
+  color: #666666 !important;
+}
+.theme-dark .cm-s-obsidian .cm-lineNumbers .cm-gutterElement,
+.theme-dark .markdown-source-view .cm-lineNumbers .cm-gutterElement {
+  color: #666666 !important;
+}
+.theme-dark .cm-s-obsidian .cm-activeLineGutter,
+.theme-dark .markdown-source-view .cm-activeLineGutter {
+  background-color: #1a2f2a !important;
+  color: #4db89a !important;
+}
+
+/* === 预览模式：Prism.js line-numbers 插件样式（需配合插件使用）=== */
+.markdown-preview-view pre[class*="language-"].line-numbers,
+.markdown-rendered pre[class*="language-"].line-numbers {
+  position: relative;
+  padding-left: 3.5em !important;
+  counter-reset: linenumber;
+}
+.line-numbers .line-numbers-rows {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3em;
+  padding: 1em 0;
+  border-right: 1px solid #d0d6d3 !important;
+  background-color: #eef2f0;
+  user-select: none;
+}
+.line-numbers .line-numbers-rows > span {
+  display: block;
+  counter-increment: linenumber;
+  pointer-events: none;
+}
+.line-numbers .line-numbers-rows > span::before {
+  content: counter(linenumber);
+  color: #888888 !important;
+  display: block;
+  padding-right: 0.8em;
+  text-align: right;
+  font-size: 0.88em;
+}
+
+/* Dark Mode 预览模式行号 */
+.theme-dark .line-numbers .line-numbers-rows {
+  background-color: #1a1f23 !important;
+  border-right-color: #2d3338 !important;
+}
+.theme-dark .line-numbers .line-numbers-rows > span::before {
+  color: #666666 !important;
+}
+
+/* ================================ */
+/* ===== Obsidian 标准代码块变量 ===== */
+/* ================================ */
+/*
+ * 这些是 Obsidian 内置使用的代码块 CSS 变量。
+ * 定义后，无论使用 Advanced Codeblock 还是默认渲染，
+ * 都会自动套用以下配色（避免使用主题默认浅蓝/灰系）。
+ */
+
+/* Light Mode */
+:root {
+  --code-background: #f5f7f9;
+  --code-normal: #333333;
+  --code-comment: #6a8a6a;
+  --code-keyword: #1a5a9a;
+  --code-string: #8a3a0a;
+  --code-function: #5a3a8a;
+  --code-tag: #8a2a5a;
+  --code-property: #8a2a5a;
+  --code-punctuation: #555555;
+  --code-operator: #3a4a3a;
+  --code-value: #1a6a4a;        /* 数字、布尔、常量 */
+  --code-important: #c7254e;
+}
+
+/* Dark Mode */
+.theme-dark {
+  --code-background: #1a1f23;
+  --code-normal: #d0d0d0;
+  --code-comment: #7aaa7a;
+  --code-keyword: #6ab0f0;
+  --code-string: #d08a5a;
+  --code-function: #b08ae0;
+  --code-tag: #e090b0;
+  --code-property: #e090b0;
+  --code-punctuation: #aaaaaa;
+  --code-operator: #9aaa8a;
+  --code-value: #7ac08a;
+  --code-important: #e89191;
+}
+
+/* ================================ */
+/* ===== Advanced Codeblock 行号兼容（预览模式）===== */
+/* ================================ */
+/*
+ * Advanced Codeblock 在预览模式注入 Prism.js 标准结构：
+ *   <pre class="line-numbers language-xxx">
+ *     <code>...</code>
+ *     <span aria-hidden="true" class="line-numbers-rows">
+ *       <span></span><span></span>...
+ *     </span>
+ *   </pre>
+ * CSS 通过 counter 自动给每个空 span 编号。
+ */
+
+/* 标准 Prism line-numbers 选择器（修复 Advanced Codeblock 默认 styles.css 宽度过大的问题）
+ * 关键：必须用 !important 强压插件原 styles.css 的 width，
+ *      并保证 pre.padding-left 严格 ≥ line-numbers-rows.width，
+ *      否则行号容器会盖住代码内容前几个字符。
+ */
+.markdown-preview-view pre.line-numbers,
+.markdown-rendered pre.line-numbers {
+  position: relative !important;
+  padding-left: 3em !important;        /* 行号宽度 2.5em + 0.5em 间距 */
+  padding-right: 1em !important;
+  padding-top: 1em !important;
+  padding-bottom: 1em !important;
+  counter-reset: linenumber;
+}
+
+.markdown-preview-view pre.line-numbers > code,
+.markdown-rendered pre.line-numbers > code {
+  position: relative !important;
+  white-space: inherit !important;
+  padding: 0 !important;
+  margin: 0 !important;                 /* 重置插件可能注入的 margin-left/right */
+  text-indent: 0 !important;            /* 防止插件用 text-indent 偏移代码 */
+  display: block !important;
+}
+
+.markdown-preview-view .line-numbers-rows,
+.markdown-rendered .line-numbers-rows {
+  position: absolute !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 2.5em !important;              /* 严格小于 pre.padding-left，避免遮挡代码 */
+  height: 100% !important;
+  padding: 1em 0 !important;
+  margin: 0 !important;
+  border-right: 1px solid #d0d6d3 !important;
+  background-color: #eef2f0 !important;
+  user-select: none;
+  pointer-events: none;
+  box-sizing: border-box !important;
+  letter-spacing: 0 !important;
+}
+
+.markdown-preview-view .line-numbers-rows > span,
+.markdown-rendered .line-numbers-rows > span {
+  display: block !important;
+  counter-increment: linenumber;
+  pointer-events: none;
+  padding: 0 0.5em 0 0 !important;      /* 行号右侧留出 0.5em 离边框 */
+  text-align: right !important;
+  font-size: 0.88em !important;
+  color: #888888 !important;
+  line-height: inherit !important;
+}
+
+/* 仅当 span 为空时由 ::before 用 counter 生成数字（插件用空 span 模式时生效）
+ * 若插件在 span 里直接放了数字文本，::before 不会与之冲突 —
+ * 因为 ::before 是行号 span 内部首位，会显示在文本前面；
+ * 此时通过隐藏 ::before 也行，但绝大多数 Prism-style 插件用空 span。
+ */
+.markdown-preview-view .line-numbers-rows > span:empty::before,
+.markdown-rendered .line-numbers-rows > span:empty::before {
+  content: counter(linenumber) !important;
+  color: #888888 !important;
+  display: block;
+}
+
+/* Dark Mode 行号 */
+.theme-dark .markdown-preview-view .line-numbers-rows,
+.theme-dark .markdown-rendered .line-numbers-rows {
+  background-color: #1a1f23 !important;
+  border-right-color: #2d3338 !important;
+}
+.theme-dark .markdown-preview-view .line-numbers-rows > span,
+.theme-dark .markdown-rendered .line-numbers-rows > span {
+  color: #666666 !important;
+}
+.theme-dark .markdown-preview-view .line-numbers-rows > span:empty::before,
+.theme-dark .markdown-rendered .line-numbers-rows > span:empty::before {
+  color: #666666 !important;
+}
