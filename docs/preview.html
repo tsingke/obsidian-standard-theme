@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Obsidian Standard Theme Preview</title>
+<style>
+  :root {
+    --bg: #f5f7f9;
+    --text: #333;
+    --heading-bg: #1a7a6a;
+    --heading-accent: #f2c94c;
+    --heading-color: #ffffff;
+    --h2-color: #f2c94c;
+    --h3-color: #2d8a6e;
+    --h4-color: #3d9a78;
+    --h5-color: #50aa88;
+    --h6-color: #6aba9c;
+    --text-accent: #1a7a6a;
+    --text-accent-strong: #0d5c4a;
+    --inline-bg: #eaf5f2;
+    --inline-color: #0d5c4a;
+    --border: #ccc;
+    --table-bg: #fff;
+    --table-stripe: #f8fbfa;
+    --code-bg: #f5f7f9;
+    --blockquote-bg: #eaf5f2;
+    --blockquote-border: #1a7a6a;
+  }
+
+  .theme-dark {
+    --bg: #1e1e1e;
+    --text: #d0d0d0;
+    --heading-bg: #1a7a6a;
+    --heading-color: #f0f0f0;
+    --h2-color: #4db89a;
+    --h3-color: #4db89a;
+    --h4-color: #63c8aa;
+    --h5-color: #7dd8ba;
+    --h6-color: #98e5cc;
+    --text-accent: #4db89a;
+    --text-accent-strong: #7dd8ba;
+    --inline-bg: #1a2f2a;
+    --inline-color: #7dd8ba;
+    --border: #444;
+    --table-bg: #1e1e1e;
+    --table-stripe: #252525;
+    --code-bg: #1a1f23;
+    --blockquote-bg: #1a2f2a;
+    --blockquote-border: #4db89a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 20px;
+    transition: background .3s, color .3s;
+  }
+
+  #container {
+    max-width: 820px;
+    margin: 0 auto;
+    background: var(--bg);
+    padding: 40px 50px 60px;
+    border-radius: 12px;
+    box-shadow: 0 2px 20px rgba(0,0,0,.08);
+    transition: background .3s;
+  }
+
+  .theme-dark #container {
+    background: #252525;
+    box-shadow: 0 2px 20px rgba(0,0,0,.3);
+  }
+
+  /* Toggle */
+  #toggle-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  #toggle-bar h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--heading-bg);
+    background: none !important;
+    padding: 0 !important;
+    text-align: left !important;
+  }
+
+  #toggle-btn {
+    display: flex;
+    gap: 4px;
+    background: #eee;
+    border-radius: 20px;
+    padding: 3px;
+  }
+
+  .theme-dark #toggle-btn {
+    background: #333;
+  }
+
+  #toggle-btn button {
+    border: none;
+    padding: 8px 20px;
+    border-radius: 18px;
+    font-size: 13px;
+    cursor: pointer;
+    background: transparent;
+    color: #666;
+    transition: all .2s;
+  }
+
+  #toggle-btn button.active {
+    background: var(--heading-bg);
+    color: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,.2);
+  }
+
+  .theme-dark #toggle-btn button {
+    color: #aaa;
+  }
+
+  /* Headings - H1 */
+  body .markdown-preview-view h1,
+  body h1 {
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: 700;
+    background-color: var(--heading-bg);
+    color: var(--heading-color) !important;
+    padding: 10px 20px;
+    border-radius: 8px;
+    position: relative;
+    margin: 28px 0 18px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  }
+
+  body h1::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 6px;
+    height: 100%;
+    background-color: var(--heading-accent);
+    border-radius: 8px 0 0 8px;
+  }
+
+  /* H2 */
+  body h2 {
+    font-size: 1.15em;
+    font-weight: 700;
+    color: var(--h2-color);
+    border-bottom: 2px solid var(--h2-color);
+    padding-bottom: 6px;
+    margin: 24px 0 14px;
+  }
+
+  /* H3 */
+  body h3 {
+    font-size: 1.05em;
+    font-weight: 600;
+    color: var(--h3-color);
+    margin: 20px 0 10px;
+  }
+
+  /* H4-H6 */
+  body h4 { color: var(--h4-color); margin: 16px 0 8px; }
+  body h5 { color: var(--h5-color); margin: 14px 0 6px; }
+  body h6 { color: var(--h6-color); margin: 12px 0 6px; }
+
+  /* Inline formatting */
+  body strong { color: var(--text-accent-strong); }
+  body em { color: var(--h3-color); }
+  body del { color: #999; }
+  body u { text-decoration: underline; text-decoration-color: var(--text-accent); }
+
+  body mark, body .highlight {
+    background: var(--heading-accent);
+    color: #333;
+    padding: 0 .25em;
+    border-radius: 3px;
+  }
+
+  body a {
+    color: var(--text-accent);
+    text-decoration: none;
+  }
+
+  body a:hover {
+    text-decoration: underline;
+  }
+
+  /* Inline code */
+  body code:not(pre code) {
+    background: var(--inline-bg);
+    color: var(--inline-color);
+    padding: .15em .4em;
+    border-radius: 4px;
+    font-family: "SF Mono", "JetBrains Mono", "Fira Code", monospace;
+    font-size: .9em;
+  }
+
+  /* Code blocks */
+  body pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin: 16px 0;
+    overflow-x: auto;
+    box-shadow: 0 1px 4px rgba(0,0,0,.05);
+  }
+
+  body pre code {
+    font-family: "SF Mono", "JetBrains Mono", "Fira Code", monospace;
+    font-size: .85em;
+    line-height: 1.5;
+    color: var(--text);
+    background: none;
+    padding: 0;
+  }
+
+  /* Syntax highlighting */
+  .token.keyword { color: #c5a; font-weight: 600; }
+  .token.function { color: #33c; }
+  .token.string { color: #2a5a8a; }
+  .token.comment { color: #5a7a5a; font-style: italic; }
+  .token.number { color: #8a2a5a; }
+  .token.operator { color: #4a4a2a; }
+  .token.class-name { color: #5a3a8a; }
+
+  .theme-dark .token.keyword { color: #c5c; }
+  .theme-dark .token.function { color: #66c; }
+  .theme-dark .token.string { color: #66a266; }
+  .theme-dark .token.comment { color: #5a7a5a; }
+  .theme-dark .token.number { color: #c6a; }
+
+  /* Blockquotes */
+  body blockquote {
+    background: var(--blockquote-bg);
+    border-left: 4px solid var(--blockquote-border);
+    margin: 16px 0;
+    padding: 12px 18px;
+    border-radius: 4px;
+    color: var(--text);
+    opacity: .92;
+  }
+
+  body blockquote p {
+    margin: 4px 0;
+  }
+
+  /* Tables */
+  body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  body thead {
+    background: var(--heading-bg);
+    color: #fff;
+  }
+
+  body th {
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: .9em;
+  }
+
+  body td {
+    padding: 8px 12px;
+    font-size: .88em;
+    border-bottom: 1px solid var(--border);
+    background: var(--table-bg);
+  }
+
+  body tr:nth-child(even) td {
+    background: var(--table-stripe);
+  }
+
+  /* Lists */
+  body ul, body ol {
+    padding-left: 24px;
+    margin: 10px 0;
+  }
+
+  body li {
+    margin: 4px 0;
+  }
+
+  /* Horizontal rules */
+  body hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+    margin: 28px 0;
+  }
+
+  /* Math */
+  body .math {
+    font-family: "STIX Two Text", "Latin Modern Math", serif;
+    color: var(--text);
+    text-align: center;
+    margin: 16px 0;
+  }
+
+  /* Callout */
+  body .callout {
+    border-left: 4px solid var(--heading-bg);
+    background: var(--blockquote-bg);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 16px 0;
+  }
+
+  body .callout-title {
+    font-weight: 700;
+    color: var(--heading-bg);
+    margin-bottom: 4px;
+    font-size: .9em;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    #container { padding: 20px; }
+    #toggle-bar { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+<div id="container">
+  <div id="toggle-bar">
+    <h1>📝 Obsidian Standard Theme</h1>
+    <div id="toggle-btn">
+      <button id="light-btn" class="active" onclick="setTheme('light')">☀ Light</button>
+      <button id="dark-btn" onclick="setTheme('dark')">🌙 Dark</button>
+    </div>
+  </div>
+
+  <!-- ===== SAMPLE CONTENT ===== -->
+  <h1>Obsidian Markdown 使用说明</h1>
+
+  <blockquote>
+    <p>💡 本文是一份 <strong>Markdown 写作指南</strong>，也是一份 <strong>CSS 主题全覆盖测试文档</strong>。建议在 <strong>浅色</strong> 和 <strong>深色</strong> 模式下各浏览一遍。</p>
+  </blockquote>
+
+  <hr>
+
+  <h2>一、标题与文本格式</h2>
+
+  <p>下面的文字展示了 <code>加粗</code>、<code>斜体</code>、<code>删除线</code>、<code>下划线</code> 和 <code>高亮</code> 的渲染效果：</p>
+
+  <p><strong>粒子群优化算法</strong>（Particle Swarm Optimization, <em>PSO</em>）由 Kennedy 和 Eberhart 于 <del>1994</del> <strong>1995 年</strong>提出。该算法具有 <code>O(n log n)</code> 的时间复杂度，是目前最流行的<u>群体智能算法</u>之一。其核心思想是：<mark>群体智能源于个体间的信息共享</mark>。</p>
+
+  <h3>1.1 行内代码与代码块</h3>
+
+  <p>在终端执行 <code>pip install numpy</code> 即可安装依赖，修改 <code>config.json</code> 中的参数可以调整算法设置。</p>
+
+  <pre><code><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">from</span> typing <span class="token keyword">import</span> <span class="token class-name">Callable</span>, <span class="token class-name">Tuple</span>
+
+<span class="token keyword">class</span> <span class="token class-name">ParticleSwarmOptimizer</span>:
+    <span class="token string">"""PSO optimizer implementation"""</span>
+
+    <span class="token keyword">def</span> <span class="token function">optimize</span>(self, dim: <span class="token builtin">int</span> = 30,
+                  bounds: <span class="token class-name">Tuple</span>[<span class="token builtin">float</span>, <span class="token builtin">float</span>]) -> <span class="token class-name">Tuple</span>[np.ndarray, <span class="token builtin">float</span>]:
+        pos = np.random.uniform(*bounds, (50, dim))
+        <span class="token keyword">for</span> t <span class="token keyword">in</span> <span class="token builtin">range</span>(1000):
+            <span class="token comment"># Evaluate fitness</span>
+            fit = np.<span class="token function">sum</span>(pos**2, axis=1)
+            best_idx = np.<span class="token function">argmin</span>(fit)
+        <span class="token keyword">return</span> pos[best_idx], fit[best_idx]</code></pre>
+
+  <hr>
+
+  <h2>二、表格渲染</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>算法名称</th>
+        <th>提出者</th>
+        <th>年份</th>
+        <th>时间复杂度</th>
+        <th>全局最优</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>PSO</td><td>Kennedy &amp; Eberhart</td><td>1995</td><td>O(n·k)</td><td>近似</td></tr>
+      <tr><td>GA</td><td>John Holland</td><td>1975</td><td>O(g·n)</td><td>近似</td></tr>
+      <tr><td>DE</td><td>Storn &amp; Price</td><td>1997</td><td>O(n·g)</td><td>近似</td></tr>
+      <tr><td>ACO</td><td>Marco Dorigo</td><td>1992</td><td>O(n²·k)</td><td>近似</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <h2>三、引用块与 Callout</h2>
+
+  <blockquote>
+    <p><strong>Markdown 设计哲学</strong>：尽可能易读易写。一份 Markdown 文档应该能够以纯文本形式直接发布，而不给人感觉它被标记指令填充过。</p>
+    <p>— 嵌套引用示例，常用于学术笔记中表示 "引用的引用"。</p>
+  </blockquote>
+
+  <div class="callout">
+    <div class="callout-title">💡 效率技巧</div>
+    <p>输入 <code>&gt; [!tip]</code> 后 Obsidian 会自动弹出类型选择列表。</p>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">⚠️ 注意</div>
+    <p>Callout 中的首段内容不会被折叠。折叠功能需配合 <code>+</code> 或 <code>-</code> 使用。</p>
+  </div>
+
+  <hr>
+
+  <h2>四、列表</h2>
+
+  <h3>4.1 无序列表</h3>
+  <ul>
+    <li>智能优化算法
+      <ul>
+        <li>粒子群优化（PSO）</li>
+        <li>差分进化（DE）</li>
+        <li>蚁群优化（ACO）</li>
+      </ul>
+    </li>
+    <li>机器学习方法
+      <ul>
+        <li>监督学习</li>
+        <li>无监督学习</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>4.2 任务列表</h3>
+  <ul>
+    <li><input type="checkbox" checked disabled> 📚 阅读 3 篇相关文献</li>
+    <li><input type="checkbox" checked disabled> 💻 完成算法代码实现</li>
+    <li><input type="checkbox" disabled> 🧪 运行对比实验</li>
+    <li><input type="checkbox" disabled> 📝 撰写论文初稿</li>
+  </ul>
+
+  <hr>
+
+  <h2>五、数学公式</h2>
+
+  <p>行内公式示例：质能方程 <span style="font-family: serif;font-style:italic;">E = mc²</span>，欧拉恒等式 <span style="font-family: serif;font-style:italic;">e<sup>iπ</sup> + 1 = 0</span>。</p>
+
+  <div class="math">
+    <p><strong>粒子群速度更新公式：</strong></p>
+    <p style="font-family: serif;font-style:italic;font-size:1.1em;">
+      <strong>v</strong><sub>i</sub><sup>t+1</sup> = ω<strong>v</strong><sub>i</sub><sup>t</sup> + c<sub>1</sub>r<sub>1</sub>(<strong>p</strong><sub>i</sub> − <strong>x</strong><sub>i</sub><sup>t</sup>) + c<sub>2</sub>r<sub>2</sub>(<strong>g</strong> − <strong>x</strong><sub>i</sub><sup>t</sup>)
+    </p>
+  </div>
+
+  <hr>
+
+  <h2>六、分隔线与脚注</h2>
+
+  <p>这是一段包含脚注的文字<sup><a href="#">[1]</a></sup>。Obsidian 支持标准 Markdown 脚注语法<sup><a href="#">[2]</a></sup>。</p>
+  <p style="font-size:.85em;color:#888;">[1] 脚注示例：补充说明而不打断正文阅读流。</p>
+
+  <hr>
+
+  <div class="callout">
+    <div class="callout-title">🎯 验证提示</div>
+    <p>切换 ☀/🌙 按钮查看两种模式下的渲染效果。所有元素应在两种模式下均有良好的可读性和一致的视觉风格。</p>
+  </div>
+
+  <p style="text-align:center;color:#888;margin-top:30px;font-size:.85em;">
+    基于 <strong>Obsidian Standard Theme</strong> v1.0 渲染 · 绿色调色板 · CSS Snippet
+  </p>
+</div>
+
+<script>
+function setTheme(mode) {
+  const body = document.body;
+  const lightBtn = document.getElementById('light-btn');
+  const darkBtn = document.getElementById('dark-btn');
+
+  if (mode === 'dark') {
+    body.classList.add('theme-dark');
+    darkBtn.classList.add('active');
+    lightBtn.classList.remove('active');
+  } else {
+    body.classList.remove('theme-dark');
+    lightBtn.classList.add('active');
+    darkBtn.classList.remove('active');
+  }
+}
+</script>
+</body>
+</html>

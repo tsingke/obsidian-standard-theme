@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.0] — 2026-06-04
+
+### Added / 新增
+
+- 🖥 Interactive browser-based preview page (`docs/preview.html`) with Light/Dark toggle
+- 🖥 交互式浏览器预览页面 `docs/preview.html`，支持实时浅色/深色切换
+- 🎨 High-quality SVG hero preview image replaces old PNG screenshots
+- 🎨 高质量 SVG 主题预览图，替代旧版 PNG 截图
+- 📝 Full Chinese Markdown example document (`example/范例.md`) covering all Obsidian elements
+- 📝 完整的中文 Markdown 范例文档，覆盖 Obsidian 全部元素
+
+### Changed / 变更
+
+- 📄 Rewritten README — cleaner structure, reduced image count, bilingual but not duplicated
+- 📄 重写 README，结构更清晰，精简图片数量，双语不重复
+- 🔗 Fixed repository URLs throughout (pointing to github.com/tsingke)
+- 🔗 统一修正仓库 URL 指向
+
+### Removed / 移除
+
+- 🗑 Old PNG screenshots that did not match actual rendering results
+- 🗑 移除与真实渲染效果不符的旧版 PNG 截图
+
+---
+
 ## [1.0.0] — 2026-06-04
 
 ### Added / 新增

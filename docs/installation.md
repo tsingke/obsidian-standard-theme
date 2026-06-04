@@ -15,11 +15,11 @@
 
 **Option A:** Clone the repository:
 ```bash
-git clone https://github.com/your-username/obsidian-standard-theme.git
+git clone https://github.com/tsingke/obsidian-standard-theme.git
 ```
 
 **Option B:** Download directly:
-- Visit the [releases page](https://github.com/your-username/obsidian-standard-theme/releases)
+- Visit the [releases page](https://github.com/tsingke/obsidian-standard-theme/releases)
 - Download the latest `obsidian-standard.css`
 
 **Option C:** Copy the raw file:
@@ -100,11 +100,11 @@ A: Make sure you have restarted Obsidian or reloaded snippets after adding the f
 
 **方式 A：克隆仓库**
 ```bash
-git clone https://github.com/your-username/obsidian-standard-theme.git
+git clone https://github.com/tsingke/obsidian-standard-theme.git
 ```
 
 **方式 B：直接下载**
-- 访问 [releases 页面](https://github.com/your-username/obsidian-standard-theme/releases)
+- 访问 [releases 页面](https://github.com/tsingke/obsidian-standard-theme/releases)
 - 下载最新的 `obsidian-standard.css`
 
 **方式 C：复制原始文件**

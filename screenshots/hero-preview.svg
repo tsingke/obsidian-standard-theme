@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f5f7f9"/>
+      <stop offset="100%" stop-color="#eef2f5"/>
+    </linearGradient>
+    <linearGradient id="hero-green" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1a7a6a"/>
+      <stop offset="100%" stop-color="#2d8a6e"/>
+    </linearGradient>
+    <linearGradient id="accent-gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f2c94c"/>
+      <stop offset="100%" stop-color="#f5d86c"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.08"/>
+    </filter>
+    <filter id="card-shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#000" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)" rx="0"/>
+
+  <!-- Top accent bar -->
+  <rect width="1200" height="5" fill="url(#hero-green)"/>
+
+  <!-- Header -->
+  <rect x="40" y="25" width="1120" height="60" rx="6" fill="url(#hero-green)" filter="url(#shadow)"/>
+  <line x1="40" y1="25" x2="40" y2="85" stroke="#f2c94c" stroke-width="4" stroke-linecap="round"/>
+  <text x="70" y="62" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="700" fill="#ffffff">📝 Obsidian Standard Theme</text>
+  <text x="420" y="62" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#b8dfd0">Light · Dark · Print  —  One CSS Snippet</text>
+
+  <!-- Left column: Sample rendered markdown -->
+  <g transform="translate(40, 105)">
+
+    <!-- Heading H1 -->
+    <rect x="0" y="0" width="540" height="38" rx="5" fill="#1a7a6a" filter="url(#card-shadow)"/>
+    <line x1="0" y1="0" x2="0" y2="38" stroke="#f2c94c" stroke-width="3" stroke-linecap="round"/>
+    <text x="12" y="26" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#ffffff">#  Obsidian Markdown 使用说明</text>
+
+    <!-- Heading H2 -->
+    <text x="0" y="72" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#f2c94c">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</text>
+    <text x="0" y="66" font-family="system-ui, sans-serif" font-size="17" font-weight="700" fill="#333333">## 一、标题与文本格式</text>
+
+    <!-- Inline formatting demo -->
+    <text x="0" y="92" font-family="system-ui, sans-serif" font-size="13" fill="#333333">用 <tspan font-weight="700" fill="#0d5c4a">加粗</tspan>、<tspan font-style="italic" fill="#2d8a6e">斜体</tspan>、<tspan text-decoration="line-through" fill="#999">删除线</tspan>、</text>
+    <text x="0" y="110" font-family="system-ui, sans-serif" font-size="13" fill="#333333"><tspan font-weight="700" fill="#0d5c4a">==高亮==</tspan> 以及 <tspan font-family="monospace" fill="#0d5c4a" font-size="12">`行内代码`</tspan> 美化排版。</text>
+
+    <!-- H3 -->
+    <text x="0" y="140" font-family="system-ui, sans-serif" font-size="15" font-weight="600" fill="#2d8a6e">### 1.1 粒子群优化算法</text>
+
+    <!-- Blockquote -->
+    <rect x="0" y="153" width="540" height="55" rx="4" fill="#eaf5f2" opacity="0.6"/>
+    <rect x="0" y="153" width="4" height="55" rx="2" fill="#1a7a6a"/>
+    <text x="14" y="173" font-family="system-ui, sans-serif" font-size="12" fill="#444">💡 粒子群优化 (PSO) 是一种基于群体协作的随机搜索算法。</text>
+    <text x="14" y="191" font-family="system-ui, sans-serif" font-size="12" fill="#444">由 Kennedy 和 Eberhart 于 1995 年提出，具有 <tspan font-family="monospace" fill="#0d5c4a" font-size="11">O(n log n)</tspan> 复杂度。</text>
+    <text x="14" y="206" fill="none"/>
+
+    <!-- Code block -->
+    <rect x="0" y="220" width="540" height="100" rx="6" fill="#f5f7f9" stroke="#ddd" stroke-width="1"/>
+    <rect x="0" y="220" width="540" height="22" rx="6" fill="#e8ecf0"/>
+    <circle cx="16" cy="231" r="4" fill="#ff5f56"/>
+    <circle cx="30" cy="231" r="4" fill="#ffbd2e"/>
+    <circle cx="44" cy="231" r="4" fill="#27c93f"/>
+    <text x="260" y="235" font-family="system-ui, sans-serif" font-size="10" fill="#888" text-anchor="middle">Python</text>
+    <text x="14" y="260" font-family="'SF Mono', 'JetBrains Mono', monospace" font-size="11" fill="#333"><tspan fill="#cc33cc">import</tspan> <tspan fill="#333">numpy </tspan><tspan fill="#cc33cc">as</tspan> <tspan fill="#333">np</tspan></text>
+    <text x="14" y="277" font-family="'SF Mono', 'JetBrains Mono', monospace" font-size="11" fill="#333"><tspan fill="#cc33cc">class</tspan> <tspan fill="#33c">ParticleSwarmOptimizer</tspan>:</text>
+    <text x="28" y="294" font-family="'SF Mono', 'JetBrains Mono', monospace" font-size="11" fill="#333"><tspan fill="#cc33cc">def</tspan> <tspan fill="#33c">optimize</tspan>(<tspan fill="#333">self, bounds</tspan>):</text>
+    <text x="42" y="311" font-family="'SF Mono', 'JetBrains Mono', monospace" font-size="11" fill="#2a5a8a">"<tspan fill="#2a5a8a">Execute PSO optimization</tspan>"</text>
+
+    <!-- Table -->
+    <rect x="0" y="335" width="540" height="95" rx="4" fill="#fff" stroke="#ddd" stroke-width="1"/>
+    <rect x="0" y="335" width="540" height="24" rx="4" fill="url(#hero-green)"/>
+    <text x="14" y="352" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#fff">算法</text>
+    <text x="104" y="352" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#fff">提出者</text>
+    <text x="204" y="352" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#fff">年份</text>
+    <text x="304" y="352" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#fff">时间复杂度</text>
+    <text x="440" y="352" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#fff" text-anchor="end">全局最优</text>
+    <line x1="0" y1="359" x2="540" y2="359" stroke="#ddd" stroke-width="1"/>
+    <text x="14" y="376" font-family="system-ui, sans-serif" font-size="12" fill="#333">PSO</text>
+    <text x="104" y="376" font-family="system-ui, sans-serif" font-size="12" fill="#444">Kennedy &amp; Eberhart</text>
+    <text x="204" y="376" font-family="system-ui, sans-serif" font-size="12" fill="#444">1995</text>
+    <text x="304" y="376" font-family="system-ui, sans-serif" font-size="12" fill="#444">O(n·k)</text>
+    <text x="440" y="376" font-family="system-ui, sans-serif" font-size="12" fill="#444" text-anchor="end">近似</text>
+    <line x1="0" y1="385" x2="540" y2="385" stroke="#eee" stroke-width="1"/>
+    <rect x="0" y="385" width="540" height="24" fill="#f8fbfa"/>
+    <text x="14" y="402" font-family="system-ui, sans-serif" font-size="12" fill="#333">GA</text>
+    <text x="104" y="402" font-family="system-ui, sans-serif" font-size="12" fill="#444">John Holland</text>
+    <text x="204" y="402" font-family="system-ui, sans-serif" font-size="12" fill="#444">1975</text>
+    <text x="304" y="402" font-family="system-ui, sans-serif" font-size="12" fill="#444">O(g·n)</text>
+    <text x="440" y="402" font-family="system-ui, sans-serif" font-size="12" fill="#444" text-anchor="end">近似</text>
+    <line x1="0" y1="409" x2="540" y2="409" stroke="#eee" stroke-width="1"/>
+    <text x="14" y="424" font-family="system-ui, sans-serif" font-size="12" fill="#333">DE</text>
+    <text x="104" y="424" font-family="system-ui, sans-serif" font-size="12" fill="#444">Storn &amp; Price</text>
+    <text x="204" y="424" font-family="system-ui, sans-serif" font-size="12" fill="#444">1997</text>
+    <text x="304" y="424" font-family="system-ui, sans-serif" font-size="12" fill="#444">O(n·g)</text>
+    <text x="440" y="424" font-family="system-ui, sans-serif" font-size="12" fill="#444" text-anchor="end">近似</text>
+
+    <!-- Unordered list -->
+    <text x="0" y="455" font-family="system-ui, sans-serif" font-size="13" fill="#333">• 智能优化算法</text>
+    <text x="16" y="473" font-family="system-ui, sans-serif" font-size="12" fill="#555">  ◦ 粒子群优化 (PSO)</text>
+    <text x="16" y="490" font-family="system-ui, sans-serif" font-size="12" fill="#555">  ◦ 差分进化 (DE)</text>
+
+    <!-- Math formula -->
+    <text x="0" y="518" font-family="system-ui, sans-serif" font-size="17" fill="#333" font-style="italic">E = mc²</text>
+    <text x="130" y="518" font-family="system-ui, sans-serif" font-size="13" fill="#555">—— 质能方程</text>
+
+    <text x="300" y="518" font-family="system-ui, sans-serif" font-size="17" fill="#333" font-style="italic">e^{iπ} + 1 = 0</text>
+    <text x="480" y="518" font-family="system-ui, sans-serif" font-size="13" fill="#555">—— 欧拉恒等式</text>
+
+  </g>
+
+  <!-- Right column: Dark mode preview and feature cards -->
+  <g transform="translate(620, 105)">
+
+    <!-- Dark mode card -->
+    <rect x="0" y="0" width="540" height="220" rx="8" fill="#1e1e1e" filter="url(#card-shadow)"/>
+    <rect x="0" y="0" width="540" height="4" rx="2" fill="#1a7a6a"/>
+    <text x="15" y="30" font-family="system-ui, sans-serif" font-size="12" fill="#888">🌙 Dark Mode / 深色模式</text>
+
+    <!-- Dark mode rendered -->
+    <rect x="15" y="42" width="510" height="28" rx="4" fill="#1a7a6a"/>
+    <line x1="15" y1="42" x2="15" y2="70" stroke="#f2c94c" stroke-width="2"/>
+    <text x="24" y="62" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#f0f0f0">#  标题渲染效果一致</text>
+
+    <text x="15" y="95" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#4db89a">### 代码高亮</text>
+
+    <rect x="15" y="105" width="510" height="55" rx="5" fill="#1a1f23" stroke="#333" stroke-width="1"/>
+    <text x="24" y="123" font-family="monospace" font-size="10" fill="#ccc"><tspan fill="#cc66cc">from</tspan> <tspan fill="#ccc">typing </tspan><tspan fill="#cc66cc">import</tspan> <tspan fill="#66c">Callable, Tuple</tspan></text>
+    <text x="24" y="139" font-family="monospace" font-size="10" fill="#ccc"><tspan fill="#cc66cc">def</tspan> <tspan fill="#66c">sphere</tspan>(x: <tspan fill="#66c">np.ndarray</tspan>) -> <tspan fill="#66c">np.ndarray</tspan>:</text>
+    <text x="36" y="155" font-family="monospace" font-size="10" fill="#66a266"><tspan fill="#66a266">"""Sphere benchmark function"""</tspan></text>
+
+    <line x1="15" y1="170" x2="525" y2="170" stroke="#333" stroke-width="1"/>
+    <text x="15" y="190" font-family="system-ui, sans-serif" font-size="11" fill="#aaa">表格 · 引用 · 列表 · 数学公式 · Callout · Mermaid · 打印优化</text>
+    <text x="15" y="208" font-family="system-ui, sans-serif" font-size="11" fill="#555">全部适配浅色/深色/打印三种模式</text>
+
+    <!-- Feature cards in a 2x2 grid -->
+    <!-- Card 1 -->
+    <rect x="0" y="240" width="260" height="100" rx="8" fill="#fff" stroke="#e8e8e8" stroke-width="1" filter="url(#card-shadow)"/>
+    <rect x="0" y="240" width="6" height="100" rx="3" fill="#1a7a6a"/>
+    <text x="18" y="268" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#1a7a6a">🎨 绿色调色板</text>
+    <text x="18" y="288" font-family="system-ui, sans-serif" font-size="12" fill="#555">#1a7a6a → #6aba9c 层级渐变</text>
+    <text x="18" y="306" font-family="system-ui, sans-serif" font-size="12" fill="#888">H1–H6 各有专属配色</text>
+    <rect x="18" y="316" width="226" height="10" rx="4" fill="#eee"/>
+    <rect x="18" y="316" width="56" height="10" rx="4" fill="#1a7a6a"/>
+    <rect x="78" y="316" width="48" height="10" rx="4" fill="#2d8a6e"/>
+    <rect x="130" y="316" width="40" height="10" rx="4" fill="#3d9a78"/>
+    <rect x="174" y="316" width="32" height="10" rx="4" fill="#50aa88"/>
+    <rect x="210" y="316" width="34" height="10" rx="4" fill="#6aba9c"/>
+
+    <!-- Card 2 -->
+    <rect x="280" y="240" width="260" height="100" rx="8" fill="#fff" stroke="#e8e8e8" stroke-width="1" filter="url(#card-shadow)"/>
+    <rect x="280" y="240" width="6" height="100" rx="3" fill="#f2c94c"/>
+    <text x="298" y="268" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#1a7a6a">🖨 打印/PDF 优化</text>
+    <text x="298" y="288" font-family="system-ui, sans-serif" font-size="12" fill="#555">print-color-adjust: exact</text>
+    <text x="298" y="306" font-family="system-ui, sans-serif" font-size="12" fill="#888">深色字 + 保留背景色</text>
+    <rect x="298" y="316" width="226" height="10" rx="4" fill="#eee"/>
+    <rect x="298" y="316" width="170" height="10" rx="4" fill="#1a7a6a"/>
+    <text x="320" y="324" font-family="system-ui, sans-serif" font-size="7" fill="#fff" font-weight="700">导出为专业排版 PDF</text>
+
+    <!-- Card 3 -->
+    <rect x="0" y="355" width="260" height="100" rx="8" fill="#fff" stroke="#e8e8e8" stroke-width="1" filter="url(#card-shadow)"/>
+    <rect x="0" y="355" width="6" height="100" rx="3" fill="#4db89a"/>
+    <text x="18" y="383" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#1a7a6a">📊 精美表格</text>
+    <text x="18" y="403" font-family="system-ui, sans-serif" font-size="12" fill="#555">绿色表头 + 斑马纹</text>
+    <text x="18" y="421" font-family="system-ui, sans-serif" font-size="12" fill="#888">Light / Dark 双模式</text>
+    <rect x="18" y="434" width="226" height="10" rx="4" fill="#eee"/>
+    <rect x="18" y="434" width="226" height="5" rx="2" fill="#1a7a6a"/>
+
+    <!-- Card 4 -->
+    <rect x="280" y="355" width="260" height="100" rx="8" fill="#fff" stroke="#e8e8e8" stroke-width="1" filter="url(#card-shadow)"/>
+    <rect x="280" y="355" width="6" height="100" rx="3" fill="#50aa88"/>
+    <text x="298" y="383" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#1a7a6a">🔤 语法高亮</text>
+    <text x="298" y="403" font-family="system-ui, sans-serif" font-size="12" fill="#555">覆盖所有主流语言</text>
+    <text x="298" y="421" font-family="system-ui, sans-serif" font-size="12" fill="#888">Python · C++ · JS · Bash</text>
+    <rect x="298" y="434" width="226" height="10" rx="4" fill="#eee"/>
+    <rect x="298" y="434" width="60" height="10" rx="4" fill="#cc66cc"/>
+    <rect x="362" y="434" width="70" height="10" rx="4" fill="#33c"/>
+    <rect x="436" y="434" width="50" height="10" rx="4" fill="#66a266"/>
+
+  </g>
+
+  <!-- Footer -->
+  <rect x="40" y="560" width="1120" height="48" rx="6" fill="#2a2a2a"/>
+  <text x="70" y="588" font-family="system-ui, sans-serif" font-size="13" fill="#aaa">⚡ 单个 CSS 文件 | 🌐 中英双语注释 | 🎯 无缝兼容 Light / Dark / Print 模式</text>
+  <text x="1070" y="588" font-family="system-ui, sans-serif" font-size="12" fill="#777" text-anchor="end">github.com/tsingke/obsidian-standard-theme</text>
+
+  <!-- Badge: MIT / Version -->
+  <rect x="40" y="500" width="60" height="22" rx="4" fill="#1a7a6a"/>
+  <text x="70" y="515" font-family="system-ui, sans-serif" font-size="10" fill="#fff" text-anchor="middle">MIT</text>
+  <rect x="108" y="500" width="50" height="22" rx="4" fill="#2d8a6e"/>
+  <text x="133" y="515" font-family="system-ui, sans-serif" font-size="10" fill="#fff" text-anchor="middle">v1.0</text>
+  <rect x="166" y="500" width="80" height="22" rx="4" fill="#f2c94c"/>
+  <text x="206" y="515" font-family="system-ui, sans-serif" font-size="10" fill="#333" text-anchor="middle">CSS Snippet</text>
+</svg>
