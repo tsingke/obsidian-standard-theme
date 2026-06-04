@@ -7,6 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.0.0] — 2026-06-04
+
+### Added / 新增
+
+- 🔢 Editor mode code-block line numbers via pure CSS counter (no plugin needed)
+- 🔢 编辑模式代码块行号通过纯 CSS counter 实现，无需额外插件
+- 🖼️ Image and Mermaid sizing constraints (`max-height: 80vh`) preventing oversized renders
+- 🖼️ 图片/Mermaid 图表约束最大高度 80vh，防止大图撑爆视口
+- 🧩 Code Block Enhancer (CBE) plugin compatibility — hides language label, unifies border
+- 🧩 适配 Code Block Enhancer 插件，隐藏语言标签、统一外边框
+
+### Changed / 变更
+
+- ♻️ Full CSS rewrite with `--code-*` variable unification — Light / Dark / Print share one color source
+- ♻️ 全面重构，`--code-*` 变量统一配色，Light / Dark / Print 三模式共用一个颜色源
+- 🖨️ Print mode refactored to use `var(--code-*)` variables instead of hardcoded values
+- 🖨️ 打印模式改用 `var(--code-*)` 变量替代硬编码值
+- 📝 Simplified Chinese-only comments (removed redundant bilingual documentation)
+- 📝 精简为纯中文注释，去除冗余的中英双语说明
+- 📄 Updated README to reflect v2.0 improvements
+- 📄 更新 README 反映 v2.0 变化
+
+### Removed / 移除
+
+- 🗑 Removed separate Advanced Codeblock plugin section (merged into CBE compatibility)
+- 🗑 移除独立的 Advanced Codeblock 插件适配段（合并到 CBE 适配中）
+- 🗑 Removed bilingual (Chinese + English) CSS comments for conciseness
+- 🗑 去除中英双语 CSS 注释，保持代码紧凑
+
+---
+
 ## [1.1.0] — 2026-06-04
 
 ### Added / 新增
