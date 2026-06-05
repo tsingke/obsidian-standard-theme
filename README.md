@@ -17,7 +17,10 @@
 
 **Obsidian Standard Theme** 是一个精心制作的 Obsidian CSS 样式片段，提供一套简洁、专业的绿色主题视觉风格。它完美适配 **浅色（Light）**、**深色（Dark）** 和 **打印/PDF（Print）** 三种模式，并在 **预览模式**（阅读）与 **源码/实时预览**（编辑）之间保持视觉一致性。
 
-与完整的 Obsidian 主题不同，这是一个**单一 CSS 文件**——下载后放入 vault 的 snippets 文件夹并启用即可，无主题冲突，无需复杂配置。
+| 与完整的 Obsidian 主题不同，这是 **两个 CSS 文件**——可同时启用，也可选择使用：
+- **`obsidian-standard.css`** (核心) — 浅色/深色/打印三模式统一样式
+- **`fonts-macos.css`** (可选) — macOS 中英混排字体优化方案（苹方/黑体/SF Mono）
+- 两者同时启用时效果最佳，只启用核心文件也完全可用|
 
 <p align="center">
   <img src="example/demo.png" alt="Obsidian Standard Theme 预览" width="800">
@@ -46,16 +49,19 @@
 ## 🚀 快速安装
 
 ```bash
-# 下载 CSS 文件至你的 vault 的 snippets 文件夹
+# 下载两个 CSS 文件至你的 vault 的 snippets 文件夹
 curl -o <你的vault>/.obsidian/snippets/obsidian-standard.css \
   https://raw.githubusercontent.com/tsingke/obsidian-standard-theme/main/obsidian-standard.css
+curl -o <你的vault>/.obsidian/snippets/fonts-macos.css \
+  https://raw.githubusercontent.com/tsingke/obsidian-standard-theme/main/fonts-macos.css
 ```
 
 或手动安装：
 
-1. **下载** [`obsidian-standard.css`](obsidian-standard.css) 文件
+1. **下载** [`obsidian-standard.css`](obsidian-standard.css) 和 [`fonts-macos.css`](fonts-macos.css) 两个文件
 2. **复制** 到 `<你的vault>/.obsidian/snippets/`（macOS 按 `Cmd+Shift+.` 显示隐藏文件夹）
-3. **启用**：设置 → 外观 → CSS 代码片段 → 刷新 → 打开 `obsidian-standard` 开关
+3. **启用**：设置 → 外观 → CSS 代码片段 → 刷新 → 打开 `obsidian-standard` 和 `fonts-macos` 两个开关
+4. 两个文件**同时启用**效果最佳：`obsidian-standard.css` 负责全部样式，`fonts-macos.css` 负责 macOS 字体渲染优化
 
 ---
 
@@ -95,7 +101,8 @@ curl -o <你的vault>/.obsidian/snippets/obsidian-standard.css \
 
 ```
 obsidian-standard-theme/
-├── obsidian-standard.css      # 🎯 主 CSS 文件（核心！）
+├── obsidian-standard.css      # 🎯 主 CSS 文件（核心！必装）
+├── fonts-macos.css            # 🎯 macOS 中英混排字体优化（推荐同时启用）
 ├── README.md                  # 本文件
 ├── LICENSE                    # MIT 许可证
 ├── CHANGELOG.md               # 版本历史

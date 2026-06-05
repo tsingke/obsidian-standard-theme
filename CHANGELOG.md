@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.1.0] — 2026-06-06
+
+### Added / 新增
+
+- 🎯 New `fonts-macos.css` — dedicated macOS Chinese/English font stack (Avenir Next + PingFang SC + Heiti SC + SF Mono)
+- 🎯 新增 `fonts-macos.css` — macOS 中英混排专用字体方案（苹方/黑体/SF Mono）
+- 📖 README updated to reflect two-file setup and installation instructions
+- 📖 更新 README，反映双文件配置及安装说明
+
+### Changed / 变更
+
+- ♻️ `obsidian-standard.css` fully synced from local development — latest code-block enhancements, print optimization, and code-highlighting refinements
+- ♻️ `obsidian-standard.css` 同步最新本地开发版本，完善代码块高亮和打印优化
+
+---
+
 ## [2.0.0] — 2026-06-04
 
 ### Added / 新增

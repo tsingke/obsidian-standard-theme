@@ -9,9 +9,13 @@
 - [Obsidian](https://obsidian.md) v1.0+ (recommended)
 - Basic familiarity with your vault's `.obsidian` folder
 
+You can use **both** CSS files together — they complement each other:
+- `obsidian-standard.css` — core theme (colors, syntax highlight, tables, blockquotes, print)
+- `fonts-macos.css` — macOS font optimization (Avenir Next + PingFang SC + Heiti SC + SF Mono)
+
 ### Step-by-Step
 
-#### 1. Download the CSS file
+#### 1. Download the CSS files
 
 **Option A:** Clone the repository:
 ```bash
@@ -20,19 +24,20 @@ git clone https://github.com/tsingke/obsidian-standard-theme.git
 
 **Option B:** Download directly:
 - Visit the [releases page](https://github.com/tsingke/obsidian-standard-theme/releases)
-- Download the latest `obsidian-standard.css`
+- Download the latest `obsidian-standard.css` and `fonts-macos.css`
 
-**Option C:** Copy the raw file:
-- Open `obsidian-standard.css` on GitHub
+**Option C:** Copy the raw files:
+- Open `obsidian-standard.css` or `fonts-macos.css` on GitHub
 - Click the "Raw" button
-- Save the page as `obsidian-standard.css`
+- Save the page as the respective filename
 
 #### 2. Copy to snippets folder
 
-Place the file in your Obsidian vault's CSS snippets directory:
+Place both files in your Obsidian vault's CSS snippets directory:
 
 ```
 <your-vault>/.obsidian/snippets/obsidian-standard.css
+<your-vault>/.obsidian/snippets/fonts-macos.css
 ```
 
 > **Note:** The `.obsidian` folder is hidden by default.
@@ -46,7 +51,7 @@ Place the file in your Obsidian vault's CSS snippets directory:
 2. Go to **Settings** → **Appearance**
 3. Scroll down to **CSS snippets**
 4. Click the **reload** button (↻) to scan for new snippets
-5. Toggle **obsidian-standard** to the **on** position
+5. Toggle **obsidian-standard** and **fonts-macos** both to the **on** position
 
 ![Enable snippet](https://placehold.co/600x200?text=Enable+Screenshot)
 
@@ -59,8 +64,8 @@ Place the file in your Obsidian vault's CSS snippets directory:
 ### Uninstallation
 
 1. Go to **Settings** → **Appearance** → **CSS snippets**
-2. Toggle **obsidian-standard** **off**
-3. (Optional) Delete `obsidian-standard.css` from your snippets folder
+2. Toggle **obsidian-standard** and **fonts-macos** both **off**
+3. (Optional) Delete `obsidian-standard.css` and `fonts-macos.css` from your snippets folder
 
 ### Compatibility
 
@@ -96,6 +101,10 @@ A: Make sure you have restarted Obsidian or reloaded snippets after adding the f
 
 ### 详细步骤
 
+可同时启用**两个 CSS 文件**，效果互补：
+- `obsidian-standard.css` — 核心主题（颜色、语法高亮、表格、引用块、打印）
+- `fonts-macos.css` — macOS 字体优化（苹方/黑体/SF Mono）
+
 #### 1. 下载 CSS 文件
 
 **方式 A：克隆仓库**
@@ -105,19 +114,20 @@ git clone https://github.com/tsingke/obsidian-standard-theme.git
 
 **方式 B：直接下载**
 - 访问 [releases 页面](https://github.com/tsingke/obsidian-standard-theme/releases)
-- 下载最新的 `obsidian-standard.css`
+- 下载最新的 `obsidian-standard.css` 和 `fonts-macos.css`
 
 **方式 C：复制原始文件**
-- 在 GitHub 上打开 `obsidian-standard.css`
+- 在 GitHub 上打开 `obsidian-standard.css` 或 `fonts-macos.css`
 - 点击 "Raw" 按钮
-- 将页面另存为 `obsidian-standard.css`
+- 将页面另存为对应文件名
 
 #### 2. 复制到 snippets 文件夹
 
-将文件放入 Obsidian 知识库的 CSS 代码片段目录：
+将两个文件放入 Obsidian 知识库的 CSS 代码片段目录：
 
 ```
 <你的知识库>/.obsidian/snippets/obsidian-standard.css
+<你的知识库>/.obsidian/snippets/fonts-macos.css
 ```
 
 > **注意：** `.obsidian` 文件夹默认是隐藏的。
@@ -131,7 +141,7 @@ git clone https://github.com/tsingke/obsidian-standard-theme.git
 2. 进入 **设置** → **外观**
 3. 向下滚动到 **CSS 代码片段**
 4. 点击 **刷新** 按钮 (↻) 扫描新片段
-5. 将 **obsidian-standard** 切换为 **开启** 状态
+5. 将 **obsidian-standard** 和 **fonts-macos** 都切换为 **开启** 状态
 
 #### 4. 验证效果
 
@@ -142,8 +152,8 @@ git clone https://github.com/tsingke/obsidian-standard-theme.git
 ### 卸载方法
 
 1. 进入 **设置** → **外观** → **CSS 代码片段**
-2. 将 **obsidian-standard** 切换为 **关闭**
-3. （可选）从 snippets 文件夹删除 `obsidian-standard.css`
+2. 将 **obsidian-standard** 和 **fonts-macos** 都切换为 **关闭**
+3. （可选）从 snippets 文件夹删除 `obsidian-standard.css` 和 `fonts-macos.css`
 
 ### 兼容性
 

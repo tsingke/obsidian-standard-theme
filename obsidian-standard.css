@@ -1,10 +1,8 @@
-/* ========================================================================
- *  Obsidian Standard
- *  Version    : 2.0.0
- *  统一 Light / Dark / Print — 统一 Preview / Source 模式
- *  Repository : https://github.com/tsingke/obsidian-standard-theme
- *  License    : MIT
- * ======================================================================== */
+/* ============================== */
+/*  obsidian-standard.css         */
+/*  统一 Light / Dark / Print     */
+/*  统一 Preview / Source 模式     */
+/* ============================== */
 
 /* ===================== */
 /* ===== 颜色变量 ===== */
@@ -235,10 +233,11 @@ body .markdown-rendered h1 {
   font-weight: bold !important;
   margin-top: 1.2em !important;
   margin-bottom: 1em !important;
-  font-size: 1.3em !important;
+  font-size: 1.15em !important;
   position: relative !important;
   border-radius: 4px !important;          /* 圆角 */
   overflow: hidden !important;             /* 让内部 ::after 金色竖线被圆角剪裁 */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18); /* 底部阴影 */
 }
 body .markdown-preview-view h1::after,
 body .markdown-rendered h1::after {
@@ -317,18 +316,20 @@ body .markdown-rendered h6 {
  * 深绿背景 + 金色竖线由父级 .cm-line.HyperMD-header-1 行容器负责（横跨整行）
  */
 .cm-s-obsidian .cm-header-1 {
-  font-size: 1.3em;
+  font-size: 1.15em !important;
   color: #ffffff !important;
   font-weight: bold;
 }
 
 /* H1 行容器：深绿背景 + 金色左侧竖线，横跨整个编辑区宽度 */
 .cm-s-obsidian .cm-line.HyperMD-header-1 {
+  font-size: var(--font-text-size, 1em);     /* 重置为正文大小，防止 --h1-size 叠加 */
   background-color: #1a7a6a !important;
   border-left: 6px solid #f2c94c !important;
   padding: 4px 8px 4px 14px !important;   /* 与预览模式 h1 padding-left 对齐 */
   color: #ffffff !important;               /* 确保 # 标记也是白色 */
   border-radius: 4px !important;           /* 圆角 */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18); /* 底部阴影 */
 }
 
 /* H1 行被光标选中（active line）时，仍保持深绿背景，不被浅灰高亮覆盖 */
@@ -341,20 +342,26 @@ body .markdown-rendered h6 {
  * 下划线由父级 .cm-line.HyperMD-header-2 行容器负责（横跨整行宽度）
  */
 .cm-s-obsidian .cm-header-2 {
-  font-size: 1.15em;
+  font-size: 1.15em !important;
   color: #1a7a6a !important;
   font-weight: bold;
 }
 
 /* H2 黄色下划线：画在行容器上，横跨整个编辑区宽度 */
 .cm-s-obsidian .cm-line.HyperMD-header-2 {
+  font-size: var(--font-text-size, 1em);     /* 重置，防止 --h2-size 叠加 */
   border-bottom: 2px solid #f2c94c !important;
   padding-bottom: 2px !important;
 }
 .cm-s-obsidian .cm-header-3 {
-  font-size: 1.05em;
+  font-size: 1.05em !important;
   color: #2d8a6e !important;
   font-weight: bold;
+}
+
+/* H3 行容器：防止 --h3-size 叠加放大 */
+.cm-s-obsidian .cm-line.HyperMD-header-3 {
+  font-size: var(--font-text-size, 1em);
 }
 .cm-s-obsidian .cm-header-4 {
   font-size: 1em;
@@ -864,6 +871,54 @@ body .markdown-rendered h6 {
   border-bottom: 1px solid #cccccc;
 }
 
+/* 编辑模式：表头单元格 —— 深绿背景 + 白字，与预览模式一致 */
+.markdown-source-view .cm-table-widget th,
+.cm-content .cm-table-widget th {
+  background: #1a7a6a !important;
+  color: #ffffff !important;
+  line-height: 1.4 !important;               /* 固定行高，防止编辑态扩张 */
+}
+
+/* 编辑模式：点击编辑时锁定表头内所有元素，不增高度、不跳文字
+ * Obsidian 切换编辑态时会在 th 内插入 .cm-line(display:block)、.cm-editor、.cm-scroller 等 CodeMirror 包装
+ * 这些元素自带 padding/margin/min-height，必须全部清零 */
+.markdown-source-view .cm-table-widget th .cm-line,
+.markdown-source-view .cm-table-widget th .cm-active,
+.markdown-source-view .cm-table-widget th .cm-editor,
+.markdown-source-view .cm-table-widget th .cm-scroller,
+.markdown-source-view .cm-table-widget th .cm-content {
+  color: #ffffff !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  min-height: 0 !important;
+  line-height: 1.4 !important;
+}
+
+/* 编辑模式：表头显示态的包裹器也锁定行高 */
+.markdown-source-view .cm-table-widget th .table-cell-wrapper {
+  line-height: 1.4 !important;
+}
+
+/* 编辑模式：数据行 td——与 th 同样的 CodeMirror 嵌套问题
+ * 点击编辑时 td 内插入 .cm-editor > .cm-scroller > .cm-content > .cm-line
+ * 各层自带 min-height/padding，会撑高单元格、文字跳动，必须清零 */
+.markdown-source-view .cm-table-widget td {
+  line-height: 1.4 !important;
+}
+.markdown-source-view .cm-table-widget td .cm-line,
+.markdown-source-view .cm-table-widget td .cm-active,
+.markdown-source-view .cm-table-widget td .cm-editor,
+.markdown-source-view .cm-table-widget td .cm-scroller,
+.markdown-source-view .cm-table-widget td .cm-content {
+  padding: 0 !important;
+  margin: 0 !important;
+  min-height: 0 !important;
+  line-height: 1.4 !important;
+}
+.markdown-source-view .cm-table-widget td .table-cell-wrapper {
+  line-height: 1.4 !important;
+}
+
 /* --- Dark Mode 表格 --- */
 .theme-dark .markdown-preview-view table,
 .theme-dark .markdown-rendered table {
@@ -895,6 +950,20 @@ body .markdown-rendered h6 {
   background: #1e1e1e !important;
   color: #d0d0d0 !important;
   border-color: #444444 !important;
+}
+
+/* 暗色模式：编辑模式表头 —— 保持深绿背景，不受暗色翻转 */
+.theme-dark .markdown-source-view .cm-table-widget th,
+.theme-dark .cm-content .cm-table-widget th {
+  background: #1a7a6a !important;
+  color: #ffffff !important;
+}
+.theme-dark .markdown-source-view .cm-table-widget th .cm-line,
+.theme-dark .markdown-source-view .cm-table-widget th .cm-active,
+.theme-dark .markdown-source-view .cm-table-widget th .cm-editor,
+.theme-dark .markdown-source-view .cm-table-widget th .cm-scroller,
+.theme-dark .markdown-source-view .cm-table-widget th .cm-content {
+  color: #ffffff !important;
 }
 
 /* ================================ */
@@ -947,11 +1016,11 @@ body .markdown-rendered h6 {
   color: #1a1a1a;
 }
 
-/* Dark Mode 引用块 */
+/* Dark Mode 引用块 — 左侧竖线颜色硬编码，不受主题影响 */
 .theme-dark .markdown-preview-view blockquote,
 .theme-dark .markdown-rendered blockquote {
   background: #1a1f1e !important;
-  border-left-color: #4db89a !important;  /* 改为亮色，深色背景下对比度充足 */
+  border-left: 4px solid #1a7a6a !important;  /* 与亮色模式同色，永不变 */
   color: #c0c0c0 !important;
 }
 
@@ -985,10 +1054,23 @@ body .markdown-rendered h6 {
 
 /* 3. 引用块 — 编辑模式（同时覆盖 Live Preview 和 Source Mode）
  * 注意：
+ * - Live Preview 下 blockquote 元素自身有默认左边框，必须清零，否则与 cm-line 边框双层叠加
  * - .cm-line.HyperMD-quote 在 Live Preview 和 Source Mode 下结构相同
- * - 不加 .markdown-source-view 前缀更可靠（某些 Obsidian 版本下祖先类名会变）
  * - text-indent: 0 用于抵消 Obsidian 默认主题可能存在的负 text-indent
  */
+
+/* ★ 清除 blockquote 元素自身的默认边框（避免双层叠加） */
+.markdown-source-view blockquote {
+  border-left: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+}
+.theme-dark .markdown-source-view blockquote {
+  border-left: none !important;
+  background: transparent !important;
+}
+
 /* 引用块编辑模式 — 紧凑美观风格
  * - 覆盖所有嵌套层级（quote-1 / quote-2 / quote-3）
  * - 加 .markdown-source-view 前缀提高优先级，压过 Obsidian 默认行级 padding
@@ -1014,12 +1096,12 @@ body .markdown-rendered h6 {
   opacity: 0.7;
 }
 
-/* Dark Mode */
+/* Dark Mode — 左侧竖线颜色硬编码，不受主题切换影响 */
 .theme-dark .markdown-source-view .cm-line.HyperMD-quote,
 .theme-dark .markdown-source-view .cm-line.HyperMD-quote-1,
 .theme-dark .markdown-source-view .cm-line.HyperMD-quote-2,
 .theme-dark .markdown-source-view .cm-line.HyperMD-quote-3 {
-  border-left-color: #4db89a !important;
+  border-left: 4px solid #1a7a6a !important;  /* 与亮色模式同色，永不变 */
   background-color: #1a1f1e !important;
   color: #c0c0c0 !important;
 }
@@ -1028,15 +1110,53 @@ body .markdown-rendered h6 {
   opacity: 0.7;
 }
 
-/* 4. 编辑模式表格 — 自适应宽度 */
-.cm-s-obsidian .cm-table-widget {
+/* 4. 编辑模式表格 — 自适应宽度
+ *
+ * Obsidian 编辑模式表格有多层结构，需要逐层撑满：
+ *   1. .cm-table-widget → Live Preview 渲染的表格外层容器
+ *   2. 内部 <table> → 表格本体
+ *   3. .table-cell-wrapper → 单元格内容包裹器
+ *
+ * table-layout: fixed 让列宽均分，消除内容长短导致的宽窄不均
+ * box-sizing: border-box 确保 padding 被计入 width，无侧边缝隙
+ */
+.cm-s-obsidian .cm-table-widget,
+.markdown-source-view.mod-cm6 .cm-content .cm-table-widget {
+  display: block !important;
   width: 100% !important;
   max-width: 100% !important;
   overflow-x: auto;
+  padding: 0 !important;
+  margin-top: 1em !important;
+  margin-bottom: 1em !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-inline-start: 0 !important;
+  margin-inline-end: 0 !important;
+  box-sizing: border-box !important;
+  transform: none !important;
+  position: relative !important;
+  left: 0 !important;
 }
-.cm-s-obsidian .cm-table-widget table {
+.cm-s-obsidian .cm-table-widget table,
+.markdown-source-view .cm-table-widget table {
   width: 100% !important;
   max-width: 100% !important;
+  table-layout: fixed !important;
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+  margin: 0 !important;
+}
+
+/* 编辑模式：单元格内容包裹器也撑满 */
+.cm-s-obsidian .table-cell-wrapper {
+  width: 100% !important;
+}
+
+/* 编辑模式：通用 table 回退（覆盖其他可能出现的表格） */
+.markdown-source-view table {
+  width: 100% !important;
+  table-layout: fixed !important;
 }
 
 /* 5. 编辑模式文档宽度 */
