@@ -1,8 +1,14 @@
 /* ============================== */
-/*  obsidian-standard.css         */
+/*  Obsidian Verdant              */
+/*  Version     : 3.0.0           */
 /*  统一 Light / Dark / Print     */
 /*  统一 Preview / Source 模式     */
+/*  跨平台核心样式（无平台字体依赖） */
 /* ============================== */
+/*  Platform font config:
+ *  macOS → platforms/macos/obsidian-verdant-fonts.css
+ *  Windows → platforms/windows/obsidian-verdant-fonts.css
+ */
 
 /* ===================== */
 /* ===== 颜色变量 ===== */
@@ -461,9 +467,6 @@ body .markdown-rendered h6 {
 
 /* ★ 代码块换行健壮性兜底（最高优先级）★
  * 强制保留代码里的 \n 换行符，覆盖主题/插件可能的 white-space: normal 干扰。
- * - white-space: pre 保留换行和空格
- * - word-wrap/word-break: normal 防止超长行被强制换行
- * - overflow-x: auto 长行允许横向滚动而非折断
  */
 .markdown-preview-view pre,
 .markdown-rendered pre,
@@ -487,8 +490,7 @@ body .markdown-rendered h6 {
   border-radius: 6px;
 }
 
-/* Dark Mode 自动通过 --code-background 变量切换；
- * 仅边框颜色需要单独处理（变量里没定义） */
+/* Dark Mode 自动通过 --code-background 变量切换； */
 .theme-dark .markdown-preview-view pre,
 .theme-dark .markdown-rendered pre,
 .theme-dark .cm-s-obsidian pre {
@@ -613,10 +615,7 @@ body .markdown-rendered h6 {
   color: #8aba6a;
 }
 
-/* 不覆盖具体插件管理的颜色 — 仅在主题未提供时回退 */
-
 /* === 编辑模式 (Source Mode) 代码高亮 === */
-/* CodeMirror 使用 .cm-* 类, 需单独设置 */
 
 /* 注释 */
 .cm-s-obsidian .cm-comment {
@@ -706,7 +705,6 @@ body .markdown-rendered h6 {
 .theme-dark .cm-s-obsidian .cm-qualifier,
 .theme-dark .cm-s-obsidian .cm-builtin { color: #8ab0d0 !important; }
 
-/* 不覆盖具体插件管理的颜色 — 仅在主题未提供时回退 */
 .markdown-preview-view pre[class*="language-"]::before,
 .markdown-rendered pre[class*="language-"]::before {
   content: none !important;
@@ -871,17 +869,15 @@ body .markdown-rendered h6 {
   border-bottom: 1px solid #cccccc;
 }
 
-/* 编辑模式：表头单元格 —— 深绿背景 + 白字，与预览模式一致 */
+/* 编辑模式：表头单元格 — 深绿背景 + 白字，与预览模式一致 */
 .markdown-source-view .cm-table-widget th,
 .cm-content .cm-table-widget th {
   background: #1a7a6a !important;
   color: #ffffff !important;
-  line-height: 1.4 !important;               /* 固定行高，防止编辑态扩张 */
+  line-height: 1.4 !important;
 }
 
-/* 编辑模式：点击编辑时锁定表头内所有元素，不增高度、不跳文字
- * Obsidian 切换编辑态时会在 th 内插入 .cm-line(display:block)、.cm-editor、.cm-scroller 等 CodeMirror 包装
- * 这些元素自带 padding/margin/min-height，必须全部清零 */
+/* 编辑模式：点击编辑时锁定表头内所有元素 */
 .markdown-source-view .cm-table-widget th .cm-line,
 .markdown-source-view .cm-table-widget th .cm-active,
 .markdown-source-view .cm-table-widget th .cm-editor,
@@ -894,14 +890,12 @@ body .markdown-rendered h6 {
   line-height: 1.4 !important;
 }
 
-/* 编辑模式：表头显示态的包裹器也锁定行高 */
+/* 编辑模式：表头显示态的包裹器 */
 .markdown-source-view .cm-table-widget th .table-cell-wrapper {
   line-height: 1.4 !important;
 }
 
-/* 编辑模式：数据行 td——与 th 同样的 CodeMirror 嵌套问题
- * 点击编辑时 td 内插入 .cm-editor > .cm-scroller > .cm-content > .cm-line
- * 各层自带 min-height/padding，会撑高单元格、文字跳动，必须清零 */
+/* 编辑模式：数据行 td */
 .markdown-source-view .cm-table-widget td {
   line-height: 1.4 !important;
 }
@@ -952,7 +946,7 @@ body .markdown-rendered h6 {
   border-color: #444444 !important;
 }
 
-/* 暗色模式：编辑模式表头 —— 保持深绿背景，不受暗色翻转 */
+/* 暗色模式：编辑模式表头 — 保持深绿背景 */
 .theme-dark .markdown-source-view .cm-table-widget th,
 .theme-dark .cm-content .cm-table-widget th {
   background: #1a7a6a !important;
@@ -1016,11 +1010,11 @@ body .markdown-rendered h6 {
   color: #1a1a1a;
 }
 
-/* Dark Mode 引用块 — 左侧竖线颜色硬编码，不受主题影响 */
+/* Dark Mode 引用块 */
 .theme-dark .markdown-preview-view blockquote,
 .theme-dark .markdown-rendered blockquote {
   background: #1a1f1e !important;
-  border-left: 4px solid #1a7a6a !important;  /* 与亮色模式同色，永不变 */
+  border-left: 4px solid #1a7a6a !important;
   color: #c0c0c0 !important;
 }
 
@@ -1028,7 +1022,7 @@ body .markdown-rendered h6 {
 /* == 编辑/预览 一致性修复 ===== */
 /* ================================ */
 
-/* 1. 下划线 — 编辑模式全覆盖 + 通配回退 */
+/* 1. 下划线 — 编辑模式全覆盖 */
 .cm-s-obsidian .cm-underline,
 .cm-s-obsidian span.cm-underline,
 .cm-s-obsidian span[class*="cm-underline"],
@@ -1052,14 +1046,9 @@ body .markdown-rendered h6 {
 .cm-s-obsidian .cm-header-5 { margin: 0.25em 0 0.1em 0 !important; }
 .cm-s-obsidian .cm-header-6 { margin: 0.2em 0 0.05em 0 !important; }
 
-/* 3. 引用块 — 编辑模式（同时覆盖 Live Preview 和 Source Mode）
- * 注意：
- * - Live Preview 下 blockquote 元素自身有默认左边框，必须清零，否则与 cm-line 边框双层叠加
- * - .cm-line.HyperMD-quote 在 Live Preview 和 Source Mode 下结构相同
- * - text-indent: 0 用于抵消 Obsidian 默认主题可能存在的负 text-indent
- */
+/* 3. 引用块 — 编辑模式 */
 
-/* ★ 清除 blockquote 元素自身的默认边框（避免双层叠加） */
+/* ★ 清除 blockquote 元素自身的默认边框 */
 .markdown-source-view blockquote {
   border-left: none !important;
   padding: 0 !important;
@@ -1071,37 +1060,33 @@ body .markdown-rendered h6 {
   background: transparent !important;
 }
 
-/* 引用块编辑模式 — 紧凑美观风格
- * - 覆盖所有嵌套层级（quote-1 / quote-2 / quote-3）
- * - 加 .markdown-source-view 前缀提高优先级，压过 Obsidian 默认行级 padding
- * - > 标记弱化（浅色、细体、半透明），让正文成为视觉焦点
- */
+/* 引用块编辑模式 — 紧凑美观风格 */
 .markdown-source-view .cm-line.HyperMD-quote,
 .markdown-source-view .cm-line.HyperMD-quote-1,
 .markdown-source-view .cm-line.HyperMD-quote-2,
 .markdown-source-view .cm-line.HyperMD-quote-3 {
-  padding-left: 0.6em !important;       /* 紧贴竖线，留出半个汉字的呼吸感 */
+  padding-left: 0.6em !important;
   text-indent: 0 !important;
   border-left: 4px solid #1a7a6a !important;
   margin-left: 0 !important;
   background-color: #f8fafa !important;
-  line-height: 1.7 !important;          /* 略宽行距让阅读舒适 */
+  line-height: 1.7 !important;
 }
 
-/* > 符号：弱化为浅绿细体，不抢正文焦点 */
+/* > 符号弱化 */
 .markdown-source-view .HyperMD-quote .cm-formatting-quote {
   margin-right: 0.25em !important;
-  color: #7aaa9a !important;             /* 浅绿色 */
+  color: #7aaa9a !important;
   font-weight: normal !important;
   opacity: 0.7;
 }
 
-/* Dark Mode — 左侧竖线颜色硬编码，不受主题切换影响 */
+/* Dark Mode 引用块编辑模式 */
 .theme-dark .markdown-source-view .cm-line.HyperMD-quote,
 .theme-dark .markdown-source-view .cm-line.HyperMD-quote-1,
 .theme-dark .markdown-source-view .cm-line.HyperMD-quote-2,
 .theme-dark .markdown-source-view .cm-line.HyperMD-quote-3 {
-  border-left: 4px solid #1a7a6a !important;  /* 与亮色模式同色，永不变 */
+  border-left: 4px solid #1a7a6a !important;
   background-color: #1a1f1e !important;
   color: #c0c0c0 !important;
 }
@@ -1110,16 +1095,7 @@ body .markdown-rendered h6 {
   opacity: 0.7;
 }
 
-/* 4. 编辑模式表格 — 自适应宽度
- *
- * Obsidian 编辑模式表格有多层结构，需要逐层撑满：
- *   1. .cm-table-widget → Live Preview 渲染的表格外层容器
- *   2. 内部 <table> → 表格本体
- *   3. .table-cell-wrapper → 单元格内容包裹器
- *
- * table-layout: fixed 让列宽均分，消除内容长短导致的宽窄不均
- * box-sizing: border-box 确保 padding 被计入 width，无侧边缝隙
- */
+/* 4. 编辑模式表格 — 自适应宽度 */
 .cm-s-obsidian .cm-table-widget,
 .markdown-source-view.mod-cm6 .cm-content .cm-table-widget {
   display: block !important;
@@ -1153,7 +1129,7 @@ body .markdown-rendered h6 {
   width: 100% !important;
 }
 
-/* 编辑模式：通用 table 回退（覆盖其他可能出现的表格） */
+/* 编辑模式：通用 table 回退 */
 .markdown-source-view table {
   width: 100% !important;
   table-layout: fixed !important;
@@ -1169,9 +1145,7 @@ body .markdown-rendered h6 {
 /* == 代码高亮 — 预览模式强制着色 ===== */
 /* ================================ */
 
-/* 预览模式 token 颜色 — 统一引用 :root --code-* 变量（单一颜色源）
- * 这样改变量值就改了全部颜色，与打印模式同源
- */
+/* 预览模式 token 颜色 — 统一引用 :root --code-* 变量 */
 .markdown-preview-view pre code[class*="language-"] .token.comment,
 .markdown-preview-view pre code[class*="language-"] .token.prolog,
 .markdown-preview-view pre code[class*="language-"] .token.doctype,
@@ -1225,28 +1199,20 @@ body .markdown-rendered h6 {
   color: var(--code-keyword) !important;
 }
 
-
 /* ================================ */
 /* ===== 图片 ===== */
 /* ================================ */
 
-/* 确保图片在 dark 模式下也清晰 */
 .markdown-preview-view img,
 .markdown-rendered img {
   max-width: 100%;
 }
 
 /* ================================= */
-/* ===== 行号样式（编辑模式 + 预览模式）===== */
+/* ===== 行号样式 ===== */
 /* ================================= */
-/*
- * 重要前提：
- * 1. 编辑模式行号需在 设置 → 编辑器 → 显示行号 开启
- * 2. 预览模式代码块行号需安装代码块插件（Obsidian 原生不支持），
- *    Obsidian 原生不支持纯 CSS 实现，因为代码块在预览模式无逐行 HTML 结构
- */
 
-/* === 编辑模式：行号 gutter（开启 Editor → Show line number 后生效）=== */
+/* 编辑模式：行号 gutter */
 .cm-s-obsidian .cm-gutters,
 .markdown-source-view .cm-gutters {
   background-color: #f5f7f9 !important;
@@ -1287,11 +1253,6 @@ body .markdown-rendered h6 {
 /* ================================ */
 /* ===== Obsidian 标准代码块变量 ===== */
 /* ================================ */
-/*
- * 这些是 Obsidian 内置使用的代码块 CSS 变量。
- * 定义后，无论使用 Advanced Codeblock 还是默认渲染，
- * 都会自动套用以下配色（避免使用主题默认浅蓝/灰系）。
- */
 
 /* Light Mode */
 :root {
@@ -1305,7 +1266,7 @@ body .markdown-rendered h6 {
   --code-property: #8a2a5a;
   --code-punctuation: #555555;
   --code-operator: #3a4a3a;
-  --code-value: #1a6a4a;        /* 数字、布尔、常量 */
+  --code-value: #1a6a4a;
   --code-important: #c7254e;
 }
 
@@ -1327,7 +1288,6 @@ body .markdown-rendered h6 {
 
 /* ══════════════════════════════════════
    编辑模式：代码块行号（CSS counter）
-   在所有 Live Preview / Source 模式下生效
    ══════════════════════════════════════ */
 
 /* 代码块首行：重置计数器 */

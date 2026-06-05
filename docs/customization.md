@@ -4,11 +4,11 @@
 
 ## English
 
-This guide explains how to customize the colors and styles of Obsidian Standard Theme to match your personal preference.
+This guide explains how to customize the colors and styles of Obsidian Verdant to match your personal preference.
 
 ### Quick Start: Change the Accent Color
 
-Want a different color scheme? Just modify the CSS variables at the top of `obsidian-standard.css`.
+Want a different color scheme? Just modify the CSS variables at the top of `core/obsidian-verdant.css`.
 
 #### Example: Blue Accent Instead of Green
 
@@ -124,7 +124,7 @@ The theme uses CSS variables from `:root { --code-* }` for Obsidian's built-in r
 
 #### Adding Custom Styles
 
-You can append your own CSS at the end of `obsidian-standard.css`. The snippet file is just CSS — anything valid CSS works:
+You can append your own CSS at the end of `core/obsidian-verdant.css`. The snippet file is just CSS — anything valid CSS works:
 
 ```css
 /* My custom additions */
@@ -152,7 +152,7 @@ If you want to change H1 color, edit both the `.markdown-preview-view` and `.cm-
 
 ### 快速上手：更换强调色
 
-想要不同的配色方案？只需修改 `obsidian-standard.css` 顶部的 CSS 变量即可。
+想要不同的配色方案？只需修改 `core/obsidian-verdant.css` 顶部的 CSS 变量即可。
 
 #### 示例：蓝色调代替绿色
 
@@ -268,7 +268,7 @@ body .markdown-rendered h1::after {
 
 #### 添加自定义样式
 
-你可以在 `obsidian-standard.css` 末尾追加自己的 CSS。代码片段文件就是纯 CSS，任何有效的 CSS 规则都可以使用：
+你可以在 `core/obsidian-verdant.css` 末尾追加自己的 CSS。代码片段文件就是纯 CSS，任何有效的 CSS 规则都可以使用：
 
 ```css
 /* 我的自定义样式 */

@@ -1,29 +1,34 @@
 
-<h1 align="center">📝 Obsidian Standard Theme</h1>
+<h1 align="center">🌿 Obsidian Verdant</h1>
 
 <p align="center">
-  <em>一个 CSS 文件，统一 Light / Dark / Print 三种模式。</em>
+  <em>一套 CSS 片段，统跨平台、协三模——Light / Dark / Print。</em>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/许可-MIT-green" alt="MIT License">
-  <img src="https://img.shields.io/badge/版本-2.0.0-1a7a6a" alt="Version 2.0.0">
+  <img src="https://img.shields.io/badge/版本-3.0.0-1a7a6a" alt="Version 3.0.0">
   <img src="https://img.shields.io/badge/Obsidian-v1.0%2B-7c3aed" alt="Obsidian v1.0+">
+  <img src="https://img.shields.io/badge/平台-macOS_|_Windows-6aba9c" alt="macOS | Windows">
 </p>
 
 ---
 
 ## 📖 概述
 
-**Obsidian Standard Theme** 是一个精心制作的 Obsidian CSS 样式片段，提供一套简洁、专业的绿色主题视觉风格。它完美适配 **浅色（Light）**、**深色（Dark）** 和 **打印/PDF（Print）** 三种模式，并在 **预览模式**（阅读）与 **源码/实时预览**（编辑）之间保持视觉一致性。
+**Obsidian Verdant**（苍翠主题）是一个精心制作的 Obsidian CSS 样式片段集合。它提供一套简洁、专业的绿色主题视觉风格，完美适配 **浅色（Light）**、**深色（Dark）** 和 **打印/PDF（Print）** 三种模式，并在 **预览模式**（阅读）与 **源码/实时预览**（编辑）之间保持视觉一致性。
 
-| 与完整的 Obsidian 主题不同，这是 **两个 CSS 文件**——可同时启用，也可选择使用：
-- **`obsidian-standard.css`** (核心) — 浅色/深色/打印三模式统一样式
-- **`fonts-macos.css`** (可选) — macOS 中英混排字体优化方案（苹方/黑体/SF Mono）
-- 两者同时启用时效果最佳，只启用核心文件也完全可用|
+### 跨平台设计
+
+Verdant 采用**核心 + 平台字体**的双层架构：
+
+- **`core/obsidian-verdant.css`** — 核心样式文件，无平台依赖（颜色、语法高亮、表格、引用块、打印）
+- **`platforms/<平台>/obsidian-verdant-fonts.css`** — 平台专属字体方案
+
+选择对应平台后，两个文件同时启用即可。
 
 <p align="center">
-  <img src="example/demo.png" alt="Obsidian Standard Theme 预览" width="800">
+  <img src="example/demo.png" alt="Obsidian Verdant 预览" width="800">
 </p>
 
 ---
@@ -43,36 +48,68 @@
 | 🔢 **代码块行号** | 编辑模式原生行号（CSS counter） + 编辑器 gutter 支持 |
 | 🎨 **图片/Mermaid 自适应** | 图片和 Mermaid 图表自动约束最大高度 80vh |
 | 🧩 **Code Block Enhancer 适配** | CBE 插件自动适配，隐藏语言标签，统一边框 |
+| 🖥️ **跨平台字体** | macOS（苹方/黑体/SF Mono）与 Windows（微软雅黑/Cascadia Code）各自优化 |
 
 ---
 
 ## 🚀 快速安装
 
+### macOS
+
 ```bash
-# 下载两个 CSS 文件至你的 vault 的 snippets 文件夹
-curl -o <你的vault>/.obsidian/snippets/obsidian-standard.css \
-  https://raw.githubusercontent.com/tsingke/obsidian-standard-theme/main/obsidian-standard.css
-curl -o <你的vault>/.obsidian/snippets/fonts-macos.css \
-  https://raw.githubusercontent.com/tsingke/obsidian-standard-theme/main/fonts-macos.css
+# 下载核心样式 + macOS 字体配置
+curl -o <你的vault>/.obsidian/snippets/obsidian-verdant.css \
+  https://raw.githubusercontent.com/tsingke/obsidian-verdant/main/core/obsidian-verdant.css
+curl -o <你的vault>/.obsidian/snippets/obsidian-verdant-fonts.css \
+  https://raw.githubusercontent.com/tsingke/obsidian-verdant/main/platforms/macos/obsidian-verdant-fonts.css
 ```
 
-或手动安装：
+### Windows
 
-1. **下载** [`obsidian-standard.css`](obsidian-standard.css) 和 [`fonts-macos.css`](fonts-macos.css) 两个文件
+```powershell
+# 下载核心样式 + Windows 字体配置
+curl -o <你的vault>\.obsidian\snippets\obsidian-verdant.css `
+  https://raw.githubusercontent.com/tsingke/obsidian-verdant/main/core/obsidian-verdant.css
+curl -o <你的vault>\.obsidian\snippets\obsidian-verdant-fonts.css `
+  https://raw.githubusercontent.com/tsingke/obsidian-verdant/main/platforms/windows/obsidian-verdant-fonts.css
+```
+
+### 手动安装（通用）
+
+1. **下载** 两个文件：
+   - [`core/obsidian-verdant.css`](core/obsidian-verdant.css)（必装）
+   - 平台字体配置（选一个）：
+     - macOS: [`platforms/macos/obsidian-verdant-fonts.css`](platforms/macos/obsidian-verdant-fonts.css)
+     - Windows: [`platforms/windows/obsidian-verdant-fonts.css`](platforms/windows/obsidian-verdant-fonts.css)
 2. **复制** 到 `<你的vault>/.obsidian/snippets/`（macOS 按 `Cmd+Shift+.` 显示隐藏文件夹）
-3. **启用**：设置 → 外观 → CSS 代码片段 → 刷新 → 打开 `obsidian-standard` 和 `fonts-macos` 两个开关
-4. 两个文件**同时启用**效果最佳：`obsidian-standard.css` 负责全部样式，`fonts-macos.css` 负责 macOS 字体渲染优化
+3. **启用**：设置 → 外观 → CSS 代码片段 → 刷新 → 打开两个开关
+
+> 💡 **Windows 用户**：推荐安装 Cascadia Code 字体以获得最佳代码显示效果。
+> 详见 [`platforms/windows/fonts/`](platforms/windows/fonts/) 目录下的安装指南和一键脚本。
 
 ---
 
-## 📐 CSS v2.0 主要改进
+## 🖥️ 平台字体方案
 
-- **`--code-*` 变量统一**：Light/Dark/Print 三模式共享同一套 CSS 变量（`--code-comment`、`--code-keyword` 等），改一处即改全部
-- **打印模式重构**：使用 `var(--code-*)` 变量替代硬编码值，自动跟随主题配色
-- **编辑模式代码块行号**：通过纯 CSS counter 实现，无需额外插件
-- **图片/Mermaid 自适应**：约束最大高度 80vh，防止大图撑爆视口
-- **CBE 兼容**：隐藏 Code Block Enhancer 语言标签，统一外边框
-- **精简注释**：去除冗余中英双语注释，保留中文关键说明，代码更紧凑
+### macOS 字体栈
+
+| 用途 | 字体 | 来源 |
+|------|------|------|
+| 英文正文 | Avenir Next | 系统内置 |
+| 中文正文 | PingFang SC（苹方） | 系统内置 |
+| 中文标题 | Heiti SC（黑体） | 系统内置 |
+| 代码 | SF Mono / Cascadia Code | 系统内置 / 可选安装 |
+
+### Windows 字体栈
+
+| 用途 | 字体 | 来源 |
+|------|------|------|
+| 英文正文 | Segoe UI | 系统内置 |
+| 中文正文 | Microsoft YaHei（微软雅黑） | 系统内置 |
+| 中文标题 | SimHei（黑体） | 系统内置 |
+| 代码 | Cascadia Code / JetBrains Mono | [Cascadia Code](https://github.com/microsoft/cascadia-code/releases) / [JetBrains Mono](https://www.jetbrains.com/lp/mono/) |
+
+Windows 用户可通过 [`platforms/windows/fonts/install.ps1`](platforms/windows/fonts/install.ps1) 一键安装推荐字体。
 
 ---
 
@@ -100,22 +137,28 @@ curl -o <你的vault>/.obsidian/snippets/fonts-macos.css \
 ## 📂 项目结构
 
 ```
-obsidian-standard-theme/
-├── obsidian-standard.css      # 🎯 主 CSS 文件（核心！必装）
-├── fonts-macos.css            # 🎯 macOS 中英混排字体优化（推荐同时启用）
-├── README.md                  # 本文件
-├── LICENSE                    # MIT 许可证
-├── CHANGELOG.md               # 版本历史
-├── example/
-│   ├── demo.png               # 🖼 README 中的示例演示图
-│   ├── 范例.md                 # 完整 Markdown 测试文档（覆盖全部语法）
-│   └── 范例.pdf                # PDF 导出参考（14 页）
+obsidian-verdant/
+├── core/
+│   └── obsidian-verdant.css          # 🎯 核心样式（跨平台共享，必装）
+├── platforms/
+│   ├── macos/
+│   │   └── obsidian-verdant-fonts.css # 🍎 macOS 字体配置
+│   └── windows/
+│       ├── obsidian-verdant-fonts.css # 🪟 Windows 字体配置
+│       └── fonts/
+│           ├── install.ps1            # ⚡ 一键字体安装脚本
+│           └── README.md              # 字体安装指南
 ├── docs/
-│   ├── installation.md        # 安装指南
-│   ├── customization.md       # 自定义指南
-│   └── preview.html           # 🖥 浏览器交互预览（浅色/深色切换）
-└── screenshots/
-    └── hero-preview.svg       # README 老版预览图（可选）
+│   ├── installation.md                # 详细安装指南
+│   └── customization.md              # 自定义指南
+├── example/
+│   ├── demo.png                       # 🖼 README 演示图
+│   ├── 范例.md                        # 完整 Markdown 测试文档
+│   └── 范例.pdf                       # PDF 导出参考（14 页）
+├── README.md                          # 本文件
+├── LICENSE                            # MIT 许可证
+├── CHANGELOG.md                       # 版本历史
+└── .gitignore
 ```
 
 ---
@@ -134,7 +177,7 @@ obsidian-standard-theme/
 - Callout 提示框（全部 12 种类型 + 可折叠）
 - 脚注、标签、嵌入、转义字符、YAML 前置元数据
 
-另有 [PDF 导出文件](example/范例.pdf) 可供参考——查看它在打印/导出模式下的实际渲染效果。
+另有 [PDF 导出文件](example/范例.pdf) 可供参考。
 
 ---
 
@@ -158,6 +201,6 @@ obsidian-standard-theme/
 ## 💬 支持
 
 - ⭐ 如果觉得有用，请给本项目 Star！
-- 🐛 [提交 Issue](https://github.com/tsingke/obsidian-standard-theme/issues) 报告 Bug 或请求功能
-- 🔀 [提交 Pull Request](https://github.com/tsingke/obsidian-standard-theme/pulls)
+- 🐛 [提交 Issue](https://github.com/tsingke/obsidian-verdant/issues) 报告 Bug 或请求功能
+- 🔀 [提交 Pull Request](https://github.com/tsingke/obsidian-verdant/pulls)
 - 💬 欢迎分享给 Obsidian 社区

@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.0.0] — 2026-06-06
+
+### Added / 新增
+
+- 🏗️ **New project name: Obsidian Verdant** — more distinctive and memorable brand
+- 🏗️ **新项目名称：Obsidian Verdant（苍翠主题）** — 更具辨识度的品牌名称
+- 🪟 **Windows platform support** — dedicated font stack (Segoe UI + Microsoft YaHei + SimHei + Cascadia Code)
+- 🪟 **新增 Windows 平台支持** — 独立字体方案（Segoe UI + 微软雅黑 + 黑体 + Cascadia Code）
+- 🏗️ **Core + Platform layered architecture**: `core/obsidian-verdant.css` (shared) + `platforms/<os>/obsidian-verdant-fonts.css`
+- 🏗️ **核心 + 平台双层架构**：核心样式跨平台共享，字体配置按平台隔离
+- 📦 Windows font install script (`platforms/windows/fonts/install.ps1`) — one-click Cascadia Code + JetBrains Mono installation
+- 📦 Windows 字体一键安装脚本 — 自动下载安装 Cascadia Code 与 JetBrains Mono
+- 📖 Fully rewritten README with cross-platform installation instructions
+- 📖 全面重写 README，含跨平台安装说明
+
+### Changed / 变更
+
+- ♻️ Repository restructured — CSS files moved to `core/` and `platforms/` directories
+- ♻️ 仓库结构重构 — CSS 文件迁移到 `core/` 和 `platforms/` 目录
+- ♻️ Core CSS header updated to "Obsidian Verdant" with v3.0.0 version bump
+- ♻️ 核心 CSS 标头更新为 "Obsidian Verdant"，版本升至 v3.0.0
+- 📝 Updated all documentation to reflect new project name and cross-platform structure
+
+### Removed / 移除
+
+- 🗑 Removed flat `obsidian-standard.css` and `fonts-macos.css` from repo root
+- 🗑 移除仓库根目录的扁平 CSS 文件（已迁移到 core/ 和 platforms/ 目录）
+
+---
+
 ## [2.1.0] — 2026-06-06
 
 ### Added / 新增

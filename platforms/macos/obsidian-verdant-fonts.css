@@ -1,0 +1,169 @@
+/* ═══════════════════════════════════════════════
+   Obsidian Verdant — macOS 字体方案
+   设计原则:
+   - 英文: Avenir Next (几何无衬线, 优雅现代)
+   - 中文正文: PingFang SC (苹方, Apple 屏显优化)
+   - 中文标题: Heiti SC (黑体, 粗壮有力)
+   - 代码: SF Mono → Cascadia Code → Menlo
+   - 回落链: Avenir Next → PingFang/Heiti → 中文字体 → 通用族名
+   原理: 英文在前、中文在后, 浏览器逐字 fallback:
+         A→Avenir Next, 好→PingFang SC
+   ═══════════════════════════════════════════════ */
+
+/* ========================================== */
+/*  1. 全局 CSS 变量 (供主题/插件继承)        */
+/* ========================================== */
+body {
+  --font-text-theme: "Avenir Next", "Avenir", "PingFang SC", -apple-system, "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", sans-serif;
+  --font-interface-theme: "Avenir Next", "Avenir", "PingFang SC", -apple-system, "Hiragino Sans GB", sans-serif;
+  --font-monospace-theme: "SF Mono", "Cascadia Code", "Menlo", "Monaco", "Consolas", "Courier New", monospace;
+  --font-heading: "Avenir Next", "Avenir", "Heiti SC", "PingFang SC Semibold", "STHeiti", "Microsoft YaHei", sans-serif;
+}
+
+/* ========================================== */
+/*  2. 正文                                     */
+/*     英文: Avenir Next (几何优雅)             */
+/*     中文: PingFang SC (苹方, 屏显优化)       */
+/* ========================================== */
+
+/* 预览模式正文 */
+.markdown-preview-view,
+.markdown-rendered {
+  font-family: "Avenir Next", "Avenir", "PingFang SC", -apple-system, "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", sans-serif;
+}
+
+/* 预览模式段落和列表 */
+.markdown-preview-view p,
+.markdown-rendered p,
+.markdown-preview-view li,
+.markdown-rendered li,
+.markdown-preview-view span:not([class*="token"]):not([class*="cm-"]),
+.markdown-rendered span:not([class*="token"]):not([class*="cm-"]) {
+  font-family: "Avenir Next", "Avenir", "PingFang SC", -apple-system, "Hiragino Sans GB", sans-serif;
+}
+
+/* 编辑模式正文 */
+.markdown-source-view .cm-content,
+.markdown-source-view .cm-line {
+  font-family: "Avenir Next", "Avenir", "PingFang SC", -apple-system, "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", sans-serif;
+}
+
+/* 中文排版微调 */
+.markdown-preview-view p,
+.markdown-rendered p,
+.markdown-source-view .cm-line {
+  line-height: 1.8;
+}
+
+/* ========================================== */
+/*  3. 标题                                     */
+/*     英文: Avenir Next (几何感强, 层次分明)   */
+/*     中文: Heiti SC (黑体, 粗壮醒目)          */
+/* ========================================== */
+
+/* 预览模式标题 */
+.markdown-preview-view h1, .markdown-rendered h1,
+.markdown-preview-view h2, .markdown-rendered h2,
+.markdown-preview-view h3, .markdown-rendered h3,
+.markdown-preview-view h4, .markdown-rendered h4,
+.markdown-preview-view h5, .markdown-rendered h5,
+.markdown-preview-view h6, .markdown-rendered h6 {
+  font-family: "Avenir Next", "Avenir", "Heiti SC", "PingFang SC Semibold", "STHeiti", "Microsoft YaHei", sans-serif;
+}
+
+/* 编辑模式标题 */
+.cm-s-obsidian .cm-header-1,
+.cm-s-obsidian .cm-header-2,
+.cm-s-obsidian .cm-header-3,
+.cm-s-obsidian .cm-header-4,
+.cm-s-obsidian .cm-header-5,
+.cm-s-obsidian .cm-header-6 {
+  font-family: "Avenir Next", "Avenir", "Heiti SC", "PingFang SC Semibold", "STHeiti", "Microsoft YaHei", sans-serif;
+}
+
+/* H1 额外加粗 */
+.markdown-preview-view h1, .markdown-rendered h1,
+.cm-s-obsidian .cm-header-1 {
+  font-weight: 700;
+}
+
+/* ========================================== */
+/*  4. 代码                                     */
+/*     SF Mono → Cascadia Code → Menlo         */
+/* ========================================== */
+
+/* 行内代码 */
+.markdown-preview-view code:not([class*="language-"]),
+.markdown-rendered code:not([class*="language-"]),
+.cm-s-obsidian .cm-inline-code {
+  font-family: "SF Mono", "Cascadia Code", "Menlo", "Monaco", "Consolas", "Courier New", monospace;
+}
+
+/* 代码块 */
+.markdown-preview-view pre,
+.markdown-rendered pre,
+.markdown-preview-view pre code,
+.markdown-rendered pre code,
+.cm-s-obsidian .HyperMD-codeblock,
+.cm-s-obsidian .HyperMD-codeblock .cm-line {
+  font-family: "SF Mono", "Cascadia Code", "Menlo", "Monaco", "Consolas", "Courier New", monospace;
+}
+
+/* 代码字号略小 */
+.markdown-preview-view pre code,
+.markdown-rendered pre code,
+.cm-s-obsidian .HyperMD-codeblock {
+  font-size: 0.9em;
+}
+
+/* ========================================== */
+/*  5. 界面字体 — Avenir Next + PingFang        */
+/*     侧栏、设置、标签页等                    */
+/* ========================================== */
+body,
+.workspace-leaf,
+.modal,
+.prompt,
+.suggestion-container,
+.setting-item,
+.nav-file-title,
+.nav-folder-title,
+.tree-item-inner,
+.status-bar,
+.menu,
+.popover,
+.vertical-tab-content,
+.community-modal,
+.mod-community-modal,
+button,
+select,
+input,
+textarea {
+  font-family: "Avenir Next", "Avenir", "PingFang SC", -apple-system, "Hiragino Sans GB", "STHeiti", sans-serif;
+}
+
+/* ========================================== */
+/*  6. macOS 字体平滑                           */
+/* ========================================== */
+.markdown-preview-view,
+.markdown-rendered,
+.markdown-source-view .cm-content {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ========================================== */
+/*  7. 打印模式: 衬线字体更适合纸质阅读         */
+/* ========================================== */
+@media print {
+  .markdown-preview-view,
+  .markdown-rendered {
+    font-family: "Times New Roman", "Songti SC", "STSong", "SimSun", "宋体", serif;
+  }
+  .markdown-preview-view h1, .markdown-rendered h1,
+  .markdown-preview-view h2, .markdown-rendered h2,
+  .markdown-preview-view h3, .markdown-rendered h3 {
+    font-family: "Avenir Next", "Heiti SC", "STHeiti", "SimHei", "黑体", sans-serif;
+  }
+}
